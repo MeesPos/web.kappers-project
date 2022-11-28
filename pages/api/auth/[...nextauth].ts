@@ -50,14 +50,23 @@ export const authOptions: NextAuthOptions = {
         if (user) {
           token.data = user
         }
+
         return token
       },
       session: async ({session, token}) => {
-        if (token.data) {
-          session.user = token.data
+        //@ts-ignore
+        if (token.data.user) {
+          //@ts-ignore
+          session.user = token.data.user
         }
+
+        //@ts-ignore
+        session.accessToken = token.data.accessToken;
+        //@ts-ignore
+        session.refreshToken = token.data.refreshToken;
+
         return session
-      },
+      }
     },
   }
 
