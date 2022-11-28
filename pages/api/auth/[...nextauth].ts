@@ -4,11 +4,15 @@ import CredentialsProvider from "next-auth/providers/credentials"
 import process from "process"
 
 export const authOptions: NextAuthOptions = {
+  session: {
+    strategy: "jwt",
+    maxAge: 12 * 60 * 60
+  },
     providers: [
       CredentialsProvider({
         name: 'Credentials',
         credentials: {
-            email: {label: 'Username', type: 'text', placeholder: 'email@site.com'},
+          email: {label: 'Username', type: 'text', placeholder: 'email@site.com'},
           password: {label: 'Password', type: 'password', placeholder: 'password'},
         },
         async authorize(credentials, _req) {
@@ -18,12 +22,25 @@ export const authOptions: NextAuthOptions = {
           }
           try {
             //@ts-ignore
-            const {data, error} = await fetch(process.env.API_URL + '/login') 
-            if (!data?.user || error) {
-              return null
+            const data = await fetch(process.env.API_URL + '/login', {
+              method: "POST",
+              body: JSON.stringify({
+                email: email,
+                password: password
+              }),
+              headers: { 
+                "Content-Type": "application/json" 
+              }
+            })
+            
+            if (data.status === 401) {
+              return null;
             }
-            return data.user
+
+            return data.json();
           } catch (error) {
+            console.log(error);
+
             return error
           }
         },
