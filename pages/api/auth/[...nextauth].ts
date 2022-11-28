@@ -21,7 +21,6 @@ export const authOptions: NextAuthOptions = {
             password: string
           }
           try {
-            //@ts-ignore
             const data = await fetch(process.env.API_URL + '/login', {
               method: "POST",
               body: JSON.stringify({
