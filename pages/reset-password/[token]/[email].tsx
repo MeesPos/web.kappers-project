@@ -8,36 +8,49 @@ const ResetPassword: NextPage = () => {
         password_repeat: ''
     })
 
+    const [errors, setErrors] = useState<Array>([])
+
     const router = useRouter()
 
     const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
-        // if (userInfo.password !== userInfo.password_repeat) {
-        //     return "Passwords are not the same";
-        // }
-        
         e.preventDefault();
 
-        try {
-            const res = await fetch(process.env.NEXT_PUBLIC_API_URL + '/reset-password', {
-                method: "POST",
-                body: JSON.stringify({
-                    password: userInfo.password,
-                    token: router.query.token,
-                    email: router.query.email
-                }),
-                headers: { 
-                  "Content-Type": "application/json" 
-                }
-            })
+        if (userInfo.password !== userInfo.password_repeat) {
+            const errorMessage = 'Passwords are not the same'
+            if (errors.indexOf(errorMessage) === -1) {
+                setErrors([...errors, errorMessage]);
+            }
 
-            await res.json();
-        } catch (err) {
-            console.log(err);
+            return;
+        }
+        
+        const res = await fetch(process.env.NEXT_PUBLIC_API_URL + '/reset-password', {
+            method: "POST",
+            body: JSON.stringify({
+                password: userInfo.password,
+                token: router.query.token,
+                email: router.query.email
+            }),
+            headers: { 
+              "Content-Type": "application/json" 
+            }
+        })
+
+        if (res.status === 498) {
+            const errorMessage = 'De token is ongeldig'
+            if (errors.indexOf(errorMessage) === -1) {
+                setErrors([errorMessage]);
+            }
+        } else {
+            router.push('/login');
         }
     }
 
     return <div>
         <form onSubmit={handleSubmit}>
+            <div>
+                {errors.map((error: string, index: string) => <p key={index}>{error}</p>)}
+            </div>
             <input name="password"
                 type="password"
                 value={userInfo.password}
