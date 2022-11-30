@@ -28,11 +28,8 @@ const ForgotPassword: NextPage = () => {
 
     return <div>
         <form onSubmit={handleSubmit}>
-            {
-                successMessage !== ''
-                    ? <p>{successMessage}</p>
-                    : ''
-            }
+            {successMessage ? <p>{successMessage}</p> : null}
+            
             <input name="email"
                 value={userInfo.email}
                 onChange={({ target }) =>

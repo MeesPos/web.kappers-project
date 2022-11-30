@@ -32,11 +32,7 @@ const Login: NextPage = () => {
 
     return <div>
         <form onSubmit={handleSubmit}>
-            {
-                error !== ''
-                    ? <p>{error}</p>
-                    : ''
-            }
+            {error ? <p>{error}</p> : null}
 
             <input name="email" 
                    value={userInfo.email}
