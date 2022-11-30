@@ -51,9 +51,9 @@ const Home: NextPage = () => {
         ```
       */}
 
-				<div className="grid grid-cols-2">
+				<div className="grid grid-cols-3">
 					{/* Content */}
-					<div className="bg-white rounded-lg m-1">
+					<div className="bg-white rounded-lg m-1 col-span-2">
 						<h2 className=" m-3 text-xl font-bold text-indigo-600">
 							Eerst volgende afspraken
 						</h2>
@@ -65,14 +65,14 @@ const Home: NextPage = () => {
 							Zoeken
 						</h1>
 					</div>
-					<div className="bg-white rounded-lg m-1">
+					<div className="bg-white rounded-lg m-1 col-span-2">
 						<h2 className=" m-3 text-xl font-bold text-indigo-600">
-							Voorraad
+							Financien
 						</h2>
 					</div>
 					<div className="bg-white rounded-lg m-1">
 						<h2 className=" m-3 text-xl font-bold text-indigo-600">
-							Financien
+							Voorraad
 						</h2>
 					</div>
 				</div>

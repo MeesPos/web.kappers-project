@@ -1,12 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import { Container } from "../../components/Container";
-import { Search } from "iconoir-react";
-import { Input } from "../../components/Input";
-import { Fragment } from "react";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import NavBar from "../../components/NavBar";
 import { DashboardWrapper } from "../../components/DashboardWrapper";
 import { KapperForm } from "../../components/KapperForm";
