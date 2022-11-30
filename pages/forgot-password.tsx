@@ -16,7 +16,7 @@ const ForgotPassword: NextPage = () => {
               email: userInfo.email,
             }),
             headers: { 
-              "Content-Type": "text/plain" 
+              "Content-Type": "application/json" 
             }
           })
 
