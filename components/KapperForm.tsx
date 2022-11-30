@@ -23,11 +23,12 @@ export function KapperForm({
 					className="my-4"
 					type="password"
 				/>
-				<input
+				<button
 					type="submit"
-					value={submitName}
 					className="text-white hover:cursor-pointer bg-indigo-500 rounded-md font-semibold w-full h-8 "
-				/>
+				>
+					{submitName}
+				</button>
 			</form>
 		</>
 	);
