@@ -8,17 +8,17 @@ const ResetPassword: NextPage = () => {
         password_repeat: ''
     })
 
-    const [errors, setErrors] = useState<Array>([])
+    const [errors, setErrors] = useState<Array<any>>([])
 
     const router = useRouter()
 
     const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
         e.preventDefault();
 
-        if (userInfo.password !== userInfo.password_repeat) {
+        if (userInfo.password !== userInfo.password_repeat || userInfo.password === '') {
             const errorMessage = 'Passwords are not the same'
             if (errors.indexOf(errorMessage) === -1) {
-                setErrors([...errors, errorMessage]);
+                setErrors([errorMessage]);
             }
 
             return;
@@ -49,7 +49,7 @@ const ResetPassword: NextPage = () => {
     return <div>
         <form onSubmit={handleSubmit}>
             <div>
-                {errors.map((error: string, index: string) => <p key={index}>{error}</p>)}
+                {errors.map((error: any, index: any) => <p key={index}>{error}</p>)}
             </div>
             <input name="password"
                 type="password"
