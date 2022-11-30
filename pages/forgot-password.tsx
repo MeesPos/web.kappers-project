@@ -6,28 +6,33 @@ const ForgotPassword: NextPage = () => {
         email: ''
     })
 
+    const [successMessage, setSuccessMessage] = useState<string>('');
+
     const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
         e.preventDefault();
 
-        try {
         const res = await fetch(process.env.NEXT_PUBLIC_API_URL + '/forgot-password', {
             method: "POST",
             body: JSON.stringify({
-              email: userInfo.email,
+                email: userInfo.email,
             }),
-            headers: { 
-              "Content-Type": "application/json" 
+            headers: {
+                "Content-Type": "application/json"
             }
-          })
+        })
 
-            await res.json()
-        } catch (err) {
-            console.log(err);
+        if (res?.status === 200) {
+            setSuccessMessage('Er is een mail verstuurd naar het e-mailadres met de vervolgstappen voor het resetten van je e-mailadres.');
         }
     }
 
     return <div>
         <form onSubmit={handleSubmit}>
+            {
+                successMessage !== ''
+                    ? <p>{successMessage}</p>
+                    : ''
+            }
             <input name="email"
                 value={userInfo.email}
                 onChange={({ target }) =>
