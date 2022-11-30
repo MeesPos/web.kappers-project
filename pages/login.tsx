@@ -1,12 +1,17 @@
 import type { NextPage } from "next";
 import { FormEventHandler, useState } from "react";
 import { signIn } from "next-auth/react"
+import { useRouter } from "next/router";
 
 const Login: NextPage = () => {
     const [userInfo, setUserInfo] = useState({
         email: '',
         password: ''
     })
+
+    const [error, setError] = useState<string>('');
+
+    const router = useRouter();
 
     const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
         e.preventDefault();
@@ -16,13 +21,23 @@ const Login: NextPage = () => {
             email: userInfo.email,
             password: userInfo.password,
             callbackUrl: '/dashboard',
-        }).then(error => {
-            console.log(error);
         });
+
+        if (res?.status === 401) {
+            setError('Onjuist e-mailadres en wachtwoord.')
+        } else {
+            router.push('/dashboard')
+        }
     }
 
     return <div>
         <form onSubmit={handleSubmit}>
+            {
+                error !== ''
+                    ? <p>{error}</p>
+                    : ''
+            }
+
             <input name="email" 
                    value={userInfo.email}
                    onChange={({ target }) => 
