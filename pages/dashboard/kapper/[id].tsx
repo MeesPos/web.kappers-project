@@ -25,39 +25,38 @@ function Beschikbaarheid({ availability }: { availability: Availability }) {
 						<Input
 							name="Ma"
 							className="mr-2"
-							placeholder={availability?.available_times.monday}
+							value={availability?.available_times.monday}
 						/>
 						<Input
 							name="Di"
 							className="mx-2"
-							placeholder={availability?.available_times.thursday}
+							value={availability?.available_times.thursday}
 						/>
 						<Input
 							name="Wo"
 							className="mx-2"
-							placeholder={
-								availability?.available_times.wednesday
-							}
+							value={availability?.available_times.wednesday}
 						/>
 						<Input
 							name="Do"
 							className="mx-2"
-							placeholder={availability?.available_times.thursday}
+							value={availability?.available_times.thursday}
 						/>
 						<Input
 							name="Vr"
 							className="mx-2"
-							placeholder={availability?.available_times.friday}
+							value={availability?.available_times.friday}
 						/>
 						<Input
 							name="Za"
 							className="mx-2"
-							placeholder={availability?.available_times.saturday}
+							value={availability?.available_times.saturday}
 						/>
 						<Input
 							name="Zo"
 							className="ml-2"
-							placeholder={availability?.available_times.sunday}
+							value={availability?.available_times.sunday}
+							// setState={}
 						/>
 					</div>
 					<button
@@ -93,6 +92,7 @@ const EditKapper: NextPage = () => {
 						onSubmit={"a"}
 						formTitle="Kapper bewerken"
 						submitName="Bewerken"
+						data={""}
 					/>
 				</div>
 				<div className="col-span-2">

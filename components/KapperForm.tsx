@@ -4,10 +4,12 @@ export function KapperForm({
 	onSubmit,
 	formTitle,
 	submitName,
+	data,
 }: {
 	onSubmit: any;
 	formTitle: string;
 	submitName: string;
+	data: any;
 }) {
 	return (
 		<>

@@ -5,11 +5,15 @@ export function Input({
 	className,
 	type,
 	placeholder,
+	value,
+	setState,
 }: {
 	name: string;
 	className?: string;
 	type?: string;
 	placeholder?: string;
+	value?: string;
+	setState?: any;
 }) {
 	return (
 		<div className={className}>
@@ -21,6 +25,12 @@ export function Input({
 				className="rounded-md border-2 border-light-gray w-full h-8 disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 focus:border-indigo-600"
 				id={name}
 				placeholder={placeholder}
+				// value={	}
+				// onChange={(e) =>
+				// 	setState({
+				// 		...state,
+				// 	})
+				// }
 			></input>
 		</div>
 	);
