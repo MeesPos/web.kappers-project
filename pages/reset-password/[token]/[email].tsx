@@ -46,34 +46,51 @@ const ResetPassword: NextPage = () => {
         }
     }
 
-    return <div>
-        <form onSubmit={handleSubmit}>
-            <div>
-                {errors.map((error: any, index: any) => <p key={index}>{error}</p>)}
+    return <div className="h-screen w-screen bg-gray-100 flex justify-center">
+        <form onSubmit={handleSubmit} className="bg-white m-auto w-3/12 p-8 rounded-xl">
+            <h1 className="text-center text-4xl font-bold mb-6">Marjolein <br /> knip knip</h1>
+
+            <div className="text-red-500 mb-6">
+                <ul>
+                    {errors.map((error: any, index: any) => <li key={index}>{error}</li>)}
+                </ul>
             </div>
-            <input name="password"
-                type="password"
-                value={userInfo.password}
-                onChange={({ target }) =>
-                    setUserInfo({
-                        ...userInfo,
-                        password: target.value
-                    })
-                }
-            />
 
-            <input name="password_repeat"
-                type="password"
-                value={userInfo.password_repeat}
-                onChange={({ target }) =>
-                    setUserInfo({
-                        ...userInfo,
-                        password_repeat: target.value
-                    })
-                }
-            />
+            <div className="flex flex-col">
+                <label htmlFor="password">Wachtwoord</label>
 
-            <button type="submit">Submit</button>
+                <input name="password"
+                    id="password"
+                    className="border-2 border-gray-200 py-2 mt-1 rounded-md pl-2"
+                    type="password"
+                    value={userInfo.password}
+                    onChange={({ target }) =>
+                        setUserInfo({
+                            ...userInfo,
+                            password: target.value
+                        })
+                    }
+                />
+            </div>
+
+            <div className="flex flex-col mt-8">
+                <label htmlFor="password">Herhaal wachtwoord</label>
+
+                <input name="password_repeat"
+                    id="password_repeat"
+                    className="border-2 border-gray-200 py-2 mt-1 rounded-md pl-2"
+                    type="password"
+                    value={userInfo.password_repeat}
+                    onChange={({ target }) =>
+                        setUserInfo({
+                            ...userInfo,
+                            password_repeat: target.value
+                        })
+                    }
+                />
+            </div>
+
+            <button type="submit" className="bg-indigo-500 w-full py-3 text-white text-md font-bold rounded-md mt-8">Reset Wachtwoord</button>
         </form>
     </div>
 }
