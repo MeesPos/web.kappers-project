@@ -1,5 +1,7 @@
 import React from "react";
 import { Input } from "./Input";
+import { useRef, useState, useEffect } from "react";
+import Image from "next/image";
 export function KapperForm({
 	onSubmit,
 	formTitle,
@@ -11,6 +13,33 @@ export function KapperForm({
 	submitName: string;
 	data: any;
 }) {
+	const [selectedFile, setSelectedFile] = useState<File>();
+	const [preview, setPreview] = useState<string>();
+	const inputFile = useRef<HTMLInputElement | null>(null);
+
+	useEffect(() => {
+		if (!selectedFile) {
+			setPreview(undefined);
+			return;
+		}
+
+		const objectUrl = URL.createObjectURL(selectedFile);
+		setPreview(objectUrl);
+
+		// free memory when ever this component is unmounted
+		return () => URL.revokeObjectURL(objectUrl);
+	}, [selectedFile]);
+
+	const onSelectFile = (e: any) => {
+		if (!e.target.files || e.target.files.length === 0) {
+			setSelectedFile(undefined);
+			return;
+		}
+
+		// I've kept this example simple by using the first image instead of multiple
+		setSelectedFile(e.target.files[0]);
+	};
+
 	return (
 		<>
 			<form onSubmit={onSubmit} className="m-5">
@@ -27,20 +56,38 @@ export function KapperForm({
 					<div className="mt-1 sm:col-span-2 sm:mt-0">
 						<div className="flex items-center">
 							<span className="h-12 w-12 overflow-hidden rounded-full bg-gray-100">
-								<svg
-									className="h-full w-full text-gray-300"
-									fill="currentColor"
-									viewBox="0 0 24 24"
-								>
-									<path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-								</svg>
+								{selectedFile ? (
+									<Image
+										src={preview!}
+										alt="profilepic preview"
+										layout="responsive"
+										width={24}
+										height={24}
+									/>
+								) : (
+									<svg
+										className="h-full w-full text-gray-300"
+										fill="currentColor"
+										viewBox="0 0 24 24"
+									>
+										<path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+									</svg>
+								)}
 							</span>
 							<button
 								type="button"
 								className="ml-5 rounded-md border border-gray-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+								onClick={() => inputFile.current?.click()}
 							>
 								Veranderen
 							</button>
+							<input
+								type="file"
+								id="file"
+								ref={inputFile}
+								style={{ display: "none" }}
+								onChange={onSelectFile}
+							/>
 						</div>
 					</div>
 				</div>
