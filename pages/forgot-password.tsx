@@ -50,7 +50,7 @@ const ForgotPassword: NextPage = () => {
             
 
             <button type="submit" className="bg-indigo-500 w-full py-3 text-white text-md font-bold rounded-md mt-8">
-                Verstuur reset linkx
+                Verstuur reset link
             </button>
         </form>
     </div>
