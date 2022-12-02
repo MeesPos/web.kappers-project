@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import { DashboardWrapper } from "../../../components/DashboardWrapper";
 import { Input } from "../../../components/Input";
 import { KapperForm } from "../../../components/KapperForm";
@@ -12,8 +12,13 @@ import {
 function classNames(...classes: any[]) {
 	return classes.filter(Boolean).join(" ");
 }
-
-function Beschikbaarheid({ availability }: { availability: Availability }) {
+function Beschikbaarheid({
+	state,
+	setState,
+}: {
+	state: Hairdresser;
+	setState: Dispatch<SetStateAction<Hairdresser | undefined>>;
+}) {
 	return (
 		<div className="">
 			<div className="m-5 ">
@@ -24,39 +29,158 @@ function Beschikbaarheid({ availability }: { availability: Availability }) {
 					<div className="grid grid-cols-7">
 						<Input
 							name="Ma"
-							className="mr-2"
-							value={availability?.available_times.monday}
+							className="mr-5"
+							value={state?.availability?.available_times.monday}
+							onChange={(e) =>
+								setState({
+									...state!,
+									availability: {
+										available_times: {
+											...state.availability
+												.available_times,
+											monday: e.target.value,
+										},
+										unavailable_times: {
+											...state.availability
+												.unavailable_times,
+										},
+									},
+								})
+							}
 						/>
 						<Input
 							name="Di"
-							className="mx-2"
-							value={availability?.available_times.thursday}
+							className="mr-5"
+							value={
+								state?.availability?.available_times.thursday
+							}
+							onChange={(e) =>
+								setState({
+									...state!,
+									availability: {
+										available_times: {
+											...state.availability
+												.available_times,
+											thursday: e.target.value,
+										},
+										unavailable_times: {
+											...state.availability
+												.unavailable_times,
+										},
+									},
+								})
+							}
 						/>
 						<Input
 							name="Wo"
-							className="mx-2"
-							value={availability?.available_times.wednesday}
+							className="mr-5"
+							value={
+								state?.availability?.available_times.wednesday
+							}
+							onChange={(e) =>
+								setState({
+									...state!,
+									availability: {
+										available_times: {
+											...state.availability
+												.available_times,
+											wednesday: e.target.value,
+										},
+										unavailable_times: {
+											...state.availability
+												.unavailable_times,
+										},
+									},
+								})
+							}
 						/>
 						<Input
 							name="Do"
-							className="mx-2"
-							value={availability?.available_times.thursday}
+							className="mr-5"
+							value={
+								state?.availability?.available_times.thuesday
+							}
+							onChange={(e) =>
+								setState({
+									...state!,
+									availability: {
+										available_times: {
+											...state.availability
+												.available_times,
+											thuesday: e.target.value,
+										},
+										unavailable_times: {
+											...state.availability
+												.unavailable_times,
+										},
+									},
+								})
+							}
 						/>
 						<Input
 							name="Vr"
-							className="mx-2"
-							value={availability?.available_times.friday}
+							className="mr-5"
+							value={state?.availability?.available_times.friday}
+							onChange={(e) =>
+								setState({
+									...state!,
+									availability: {
+										available_times: {
+											...state.availability
+												.available_times,
+											friday: e.target.value,
+										},
+										unavailable_times: {
+											...state.availability
+												.unavailable_times,
+										},
+									},
+								})
+							}
 						/>
 						<Input
 							name="Za"
-							className="mx-2"
-							value={availability?.available_times.saturday}
+							className="mr-5"
+							value={
+								state?.availability?.available_times.saturday
+							}
+							onChange={(e) =>
+								setState({
+									...state!,
+									availability: {
+										available_times: {
+											...state.availability
+												.available_times,
+											saturday: e.target.value,
+										},
+										unavailable_times: {
+											...state.availability
+												.unavailable_times,
+										},
+									},
+								})
+							}
 						/>
 						<Input
 							name="Zo"
-							className="ml-2"
-							value={availability?.available_times.sunday}
-							// setState={}
+							className="mr-5"
+							value={state?.availability?.available_times.sunday}
+							onChange={(e) =>
+								setState({
+									...state!,
+									availability: {
+										available_times: {
+											...state.availability
+												.available_times,
+											sunday: e.target.value,
+										},
+										unavailable_times: {
+											...state.availability
+												.unavailable_times,
+										},
+									},
+								})
+							}
 						/>
 					</div>
 					<button
@@ -70,6 +194,7 @@ function Beschikbaarheid({ availability }: { availability: Availability }) {
 		</div>
 	);
 }
+
 const EditKapper: NextPage = () => {
 	const [hairdresserInfo, setHairdresserInfo] = useState<Hairdresser>();
 	const router = useRouter();
@@ -98,11 +223,14 @@ const EditKapper: NextPage = () => {
 				<div className="col-span-2">
 					<div className="m-3 bg-white rounded-lg border-2 border-light-gray">
 						<Beschikbaarheid
-							availability={hairdresserInfo?.availability!}
+							state={hairdresserInfo!}
+							setState={setHairdresserInfo}
 						/>
 					</div>
 					<div className="m-3 bg-white rounded-lg border-2 border-light-gray">
-						3
+						<div className="text-xl text-indigo-500 font-bold m-5">
+							Eerst volgende Afspraken
+						</div>
 					</div>
 				</div>
 			</div>
