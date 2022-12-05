@@ -16,7 +16,7 @@ const ResetPassword: NextPage = () => {
         e.preventDefault();
 
         if (userInfo.password !== userInfo.password_repeat || userInfo.password === '') {
-            const errorMessage = 'Passwords are not the same'
+            const errorMessage = 'Wachtwoord moet het hetzelfde zijn'
             if (errors.indexOf(errorMessage) === -1) {
                 setErrors([errorMessage]);
             }
@@ -41,6 +41,8 @@ const ResetPassword: NextPage = () => {
             if (errors.indexOf(errorMessage) === -1) {
                 setErrors([errorMessage]);
             }
+        } else if(res.status === 400) {
+            setErrors(await res.json());            
         } else {
             router.push('/login');
         }
@@ -52,7 +54,7 @@ const ResetPassword: NextPage = () => {
 
             <div className="text-red-500 mb-6">
                 <ul>
-                    {errors.map((error: any, index: any) => <li key={index}>{error}</li>)}
+                    {errors?.map((error: any, index: any) => <li key={index}>{error}</li>)}
                 </ul>
             </div>
 
