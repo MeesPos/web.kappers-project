@@ -1,8 +1,9 @@
 import { Hash } from "crypto";
 
-interface StartEndTime {
+export interface StartEndTime {
 	start_time: string;
 	end_time: string;
+	pauses: StartEndTime[];
 }
 
 export interface Availability {

@@ -6,11 +6,13 @@ export function TimeRangePicker({
 	type,
 	placeholder,
 	startValue,
+	label,
 	endValue,
 	onChangeStartTime,
 	onChangeEndTime,
 }: {
 	name: string;
+	label?: boolean;
 	className?: string;
 	type?: string;
 	placeholder?: string;
@@ -21,13 +23,15 @@ export function TimeRangePicker({
 }) {
 	return (
 		<div className={className}>
-			<label htmlFor={name} className="block ml-1">
-				{name}
-			</label>
+			{label ? (
+				<label htmlFor={name} className="block ml-1">
+					{name}
+				</label>
+			) : null}
 			<span className="inline-flex">
 				<input
 					type="text"
-					className="rounded-md border-2 border-light-gray w-full h-8 max-w-1 border-r-0 focus:border-indigo-600 focus:border-r-0 text-sm rounded-r-none"
+					className="rounded-md border-2 border-light-gray w-full h-8 max-w-1 border-r-0 focus:border-indigo-600 focus-visible:border-r-0 text-sm rounded-r-none"
 					id={name}
 					placeholder={placeholder}
 					value={startValue}

@@ -7,18 +7,15 @@ import {
 	ChangeEvent,
 } from "react";
 import { DashboardWrapper } from "../../../components/DashboardWrapper";
-import { Input } from "../../../components/Input";
 import { KapperForm } from "../../../components/KapperForm";
 import { useRouter } from "next/router";
 import { TimeRangePicker } from "../../../components/TimeRangePicker";
 import {
 	Hairdresser,
 	Availability,
+	StartEndTime,
 } from "../../../interfaces/haidresser.interface";
 
-function classNames(...classes: any[]) {
-	return classes.filter(Boolean).join(" ");
-}
 function Beschikbaarheid({
 	state,
 	setState,
@@ -29,7 +26,7 @@ function Beschikbaarheid({
 	function handleChange(
 		event: ChangeEvent<HTMLInputElement>,
 		day: keyof Availability,
-		time: "start_time" | "end_time"
+		time: keyof StartEndTime
 	) {
 		const result = event.target.value.replace(/[^0-9:]/g, "");
 		setState({
@@ -37,6 +34,20 @@ function Beschikbaarheid({
 			[day]: {
 				...state[day],
 				[time]: result,
+			},
+		});
+	}
+	function handlePauseChange(
+		event: ChangeEvent<HTMLInputElement>,
+		day: keyof Availability,
+		time: keyof StartEndTime
+	) {
+		const result = event.target.value.replace(/[^0-9:]/g, "");
+		setState({
+			...state!,
+			[day]: {
+				...state[day],
+				pauses: result,
 			},
 		});
 	}
@@ -51,11 +62,106 @@ function Beschikbaarheid({
 					<div className="grid grid-cols-7">
 						<TimeRangePicker
 							name="Ma"
+							label={true}
 							className="mr-5"
 							startValue={state?.monday?.start_time}
 							endValue={state?.monday?.end_time}
 							onChangeStartTime={(event) =>
 								handleChange(event, "monday", "start_time")
+							}
+							onChangeEndTime={(event) =>
+								handleChange(event, "monday", "end_time")
+							}
+						/>
+
+						<TimeRangePicker
+							name="Di"
+							className="mr-5"
+							label={true}
+							startValue={state?.tuesday?.start_time}
+							endValue={state?.tuesday?.end_time}
+							onChangeStartTime={(event) =>
+								handleChange(event, "tuesday", "start_time")
+							}
+							onChangeEndTime={(event) =>
+								handleChange(event, "tuesday", "end_time")
+							}
+						/>
+						<TimeRangePicker
+							name="Wo"
+							label={true}
+							className="mr-5"
+							startValue={state?.wednesday?.start_time}
+							endValue={state?.wednesday?.end_time}
+							onChangeStartTime={(event) =>
+								handleChange(event, "wednesday", "start_time")
+							}
+							onChangeEndTime={(event) =>
+								handleChange(event, "wednesday", "end_time")
+							}
+						/>
+						<TimeRangePicker
+							name="Do"
+							label={true}
+							className="mr-5"
+							startValue={state?.thursday?.start_time}
+							endValue={state?.thursday?.end_time}
+							onChangeStartTime={(event) =>
+								handleChange(event, "thursday", "start_time")
+							}
+							onChangeEndTime={(event) =>
+								handleChange(event, "thursday", "end_time")
+							}
+						/>
+						<TimeRangePicker
+							name="Vr"
+							label={true}
+							className="mr-5"
+							startValue={state?.friday?.start_time}
+							endValue={state?.friday?.end_time}
+							onChangeStartTime={(event) =>
+								handleChange(event, "friday", "start_time")
+							}
+							onChangeEndTime={(event) =>
+								handleChange(event, "friday", "end_time")
+							}
+						/>
+						<TimeRangePicker
+							name="Za"
+							className="mr-5"
+							label={true}
+							startValue={state?.saturday?.start_time}
+							endValue={state?.saturday?.end_time}
+							onChangeStartTime={(event) =>
+								handleChange(event, "saturday", "start_time")
+							}
+							onChangeEndTime={(event) =>
+								handleChange(event, "saturday", "end_time")
+							}
+						/>
+						<TimeRangePicker
+							name="Zo"
+							label={true}
+							className="mr-5"
+							startValue={state?.sunday?.start_time}
+							endValue={state?.sunday?.end_time}
+							onChangeStartTime={(event) =>
+								handleChange(event, "sunday", "start_time")
+							}
+							onChangeEndTime={(event) =>
+								handleChange(event, "sunday", "end_time")
+							}
+						/>
+					</div>
+					Pauzes
+					<div className="grid grid-cols-7 mt-1">
+						<TimeRangePicker
+							name="Ma"
+							className="mr-5"
+							startValue={state?.monday?.start_time}
+							endValue={state?.monday?.end_time}
+							onChangeStartTime={(event) =>
+								handlePauseChange(event, "monday", "start_time")
 							}
 							onChangeEndTime={(event) =>
 								handleChange(event, "monday", "end_time")
@@ -135,12 +241,14 @@ function Beschikbaarheid({
 							}
 						/>
 					</div>
-					<button
-						type="submit"
-						className="text-white hover:cursor-pointer bg-indigo-500 rounded-md font-semibold h-8 mt-2 w-28"
-					>
-						Bijwerken
-					</button>
+					<div className="w-full flex">
+						<button
+							type="submit"
+							className="text-white hover:cursor-pointer bg-indigo-500 rounded-md font-semibold h-8 mt-2 w-28 justify-self-end	"
+						>
+							Bijwerken
+						</button>
+					</div>
 				</form>
 			</div>
 		</div>
