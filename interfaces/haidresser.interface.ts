@@ -5,7 +5,7 @@ interface StartEndTime {
 	end_time: string;
 }
 
-export interface WeekDay {
+export interface Availability {
 	monday: StartEndTime;
 	tuesday: StartEndTime;
 	wednesday: StartEndTime;
@@ -13,11 +13,6 @@ export interface WeekDay {
 	friday: StartEndTime;
 	saturday: StartEndTime;
 	sunday: StartEndTime;
-}
-
-export interface Availability {
-	unavailable_times: WeekDay;
-	available_times: WeekDay;
 }
 
 export interface Hairdresser {

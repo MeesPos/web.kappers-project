@@ -14,7 +14,6 @@ import { TimeRangePicker } from "../../../components/TimeRangePicker";
 import {
 	Hairdresser,
 	Availability,
-	WeekDay,
 } from "../../../interfaces/haidresser.interface";
 
 function classNames(...classes: any[]) {
@@ -24,28 +23,20 @@ function Beschikbaarheid({
 	state,
 	setState,
 }: {
-	state: Hairdresser;
-	setState: Dispatch<SetStateAction<Hairdresser | undefined>>;
+	state: Availability;
+	setState: Dispatch<SetStateAction<Availability | undefined>>;
 }) {
 	function handleChange(
 		event: ChangeEvent<HTMLInputElement>,
-		day: keyof WeekDay,
+		day: keyof Availability,
 		time: "start_time" | "end_time"
 	) {
 		const result = event.target.value.replace(/[^0-9:]/g, "");
 		setState({
 			...state!,
-			availability: {
-				available_times: {
-					...state?.availability.available_times,
-					[day]: {
-						...state?.availability.available_times[day],
-						[time]: result,
-					},
-				},
-				unavailable_times: {
-					...state?.availability.unavailable_times,
-				},
+			[day]: {
+				...state[day],
+				[time]: result,
 			},
 		});
 	}
@@ -61,14 +52,8 @@ function Beschikbaarheid({
 						<TimeRangePicker
 							name="Ma"
 							className="mr-5"
-							startValue={
-								state?.availability?.available_times.monday
-									?.start_time
-							}
-							endValue={
-								state?.availability?.available_times.monday
-									.end_time
-							}
+							startValue={state?.monday?.start_time}
+							endValue={state?.monday?.end_time}
 							onChangeStartTime={(event) =>
 								handleChange(event, "monday", "start_time")
 							}
@@ -80,14 +65,8 @@ function Beschikbaarheid({
 						<TimeRangePicker
 							name="Di"
 							className="mr-5"
-							startValue={
-								state?.availability?.available_times.tuesday
-									?.start_time
-							}
-							endValue={
-								state?.availability?.available_times.tuesday
-									?.end_time
-							}
+							startValue={state?.tuesday?.start_time}
+							endValue={state?.tuesday?.end_time}
 							onChangeStartTime={(event) =>
 								handleChange(event, "tuesday", "start_time")
 							}
@@ -98,14 +77,8 @@ function Beschikbaarheid({
 						<TimeRangePicker
 							name="Wo"
 							className="mr-5"
-							startValue={
-								state?.availability?.available_times.wednesday
-									?.start_time
-							}
-							endValue={
-								state?.availability?.available_times.wednesday
-									?.end_time
-							}
+							startValue={state?.wednesday?.start_time}
+							endValue={state?.wednesday?.end_time}
 							onChangeStartTime={(event) =>
 								handleChange(event, "wednesday", "start_time")
 							}
@@ -116,14 +89,8 @@ function Beschikbaarheid({
 						<TimeRangePicker
 							name="Do"
 							className="mr-5"
-							startValue={
-								state?.availability?.available_times.thursday
-									?.start_time
-							}
-							endValue={
-								state?.availability?.available_times.thursday
-									?.end_time
-							}
+							startValue={state?.thursday?.start_time}
+							endValue={state?.thursday?.end_time}
 							onChangeStartTime={(event) =>
 								handleChange(event, "thursday", "start_time")
 							}
@@ -134,14 +101,8 @@ function Beschikbaarheid({
 						<TimeRangePicker
 							name="Vr"
 							className="mr-5"
-							startValue={
-								state?.availability?.available_times.friday
-									?.start_time
-							}
-							endValue={
-								state?.availability?.available_times.friday
-									?.end_time
-							}
+							startValue={state?.friday?.start_time}
+							endValue={state?.friday?.end_time}
 							onChangeStartTime={(event) =>
 								handleChange(event, "friday", "start_time")
 							}
@@ -152,14 +113,8 @@ function Beschikbaarheid({
 						<TimeRangePicker
 							name="Za"
 							className="mr-5"
-							startValue={
-								state?.availability?.available_times.saturday
-									?.start_time
-							}
-							endValue={
-								state?.availability?.available_times.saturday
-									?.end_time
-							}
+							startValue={state?.saturday?.start_time}
+							endValue={state?.saturday?.end_time}
 							onChangeStartTime={(event) =>
 								handleChange(event, "saturday", "start_time")
 							}
@@ -170,14 +125,8 @@ function Beschikbaarheid({
 						<TimeRangePicker
 							name="Zo"
 							className="mr-5"
-							startValue={
-								state?.availability?.available_times.sunday
-									?.start_time
-							}
-							endValue={
-								state?.availability?.available_times.sunday
-									?.end_time
-							}
+							startValue={state?.sunday?.start_time}
+							endValue={state?.sunday?.end_time}
 							onChangeStartTime={(event) =>
 								handleChange(event, "sunday", "start_time")
 							}
@@ -200,6 +149,8 @@ function Beschikbaarheid({
 
 const EditKapper: NextPage = () => {
 	const [hairdresserInfo, setHairdresserInfo] = useState<Hairdresser>();
+	const [availability, setAvailability] = useState<Availability>();
+
 	const router = useRouter();
 	useEffect(() => {
 		if (!router.isReady) return;
@@ -226,8 +177,8 @@ const EditKapper: NextPage = () => {
 				<div className="col-span-2">
 					<div className="m-3 bg-white rounded-lg border-2 border-light-gray">
 						<Beschikbaarheid
-							state={hairdresserInfo!}
-							setState={setHairdresserInfo}
+							state={availability!}
+							setState={setAvailability}
 						/>
 					</div>
 					<div className="m-3 bg-white rounded-lg border-2 border-light-gray">
