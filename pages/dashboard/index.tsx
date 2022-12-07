@@ -2,10 +2,6 @@ import type { NextPage } from "next";
 import { Search } from "iconoir-react";
 import { DashboardWrapper } from "../../components/DashboardWrapper";
 
-function classNames(...classes: any[]) {
-	return classes.filter(Boolean).join(" ");
-}
-
 const Home: NextPage = () => {
 	return (
 		<>

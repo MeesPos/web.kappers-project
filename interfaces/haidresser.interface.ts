@@ -1,13 +1,18 @@
 import { Hash } from "crypto";
 
-interface WeekDay {
-	monday: string;
-	thuesday: string;
-	wednesday: string;
-	thursday: string;
-	friday: string;
-	saturday: string;
-	sunday: string;
+interface StartEndTime {
+	start_time: string;
+	end_time: string;
+}
+
+export interface WeekDay {
+	monday: StartEndTime;
+	tuesday: StartEndTime;
+	wednesday: StartEndTime;
+	thursday: StartEndTime;
+	friday: StartEndTime;
+	saturday: StartEndTime;
+	sunday: StartEndTime;
 }
 
 export interface Availability {

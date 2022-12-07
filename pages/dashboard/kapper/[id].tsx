@@ -1,12 +1,20 @@
 import type { NextPage } from "next";
-import { useState, useEffect, Dispatch, SetStateAction } from "react";
+import {
+	useState,
+	useEffect,
+	Dispatch,
+	SetStateAction,
+	ChangeEvent,
+} from "react";
 import { DashboardWrapper } from "../../../components/DashboardWrapper";
 import { Input } from "../../../components/Input";
 import { KapperForm } from "../../../components/KapperForm";
 import { useRouter } from "next/router";
+import { TimeRangePicker } from "../../../components/TimeRangePicker";
 import {
 	Hairdresser,
 	Availability,
+	WeekDay,
 } from "../../../interfaces/haidresser.interface";
 
 function classNames(...classes: any[]) {
@@ -19,6 +27,29 @@ function Beschikbaarheid({
 	state: Hairdresser;
 	setState: Dispatch<SetStateAction<Hairdresser | undefined>>;
 }) {
+	function handleChange(
+		event: ChangeEvent<HTMLInputElement>,
+		day: keyof WeekDay,
+		time: "start_time" | "end_time"
+	) {
+		const result = event.target.value.replace(/[^0-9:]/g, "");
+		setState({
+			...state!,
+			availability: {
+				available_times: {
+					...state?.availability.available_times,
+					[day]: {
+						...state?.availability.available_times[day],
+						[time]: result,
+					},
+				},
+				unavailable_times: {
+					...state?.availability.unavailable_times,
+				},
+			},
+		});
+	}
+
 	return (
 		<div className="">
 			<div className="m-5 ">
@@ -27,159 +58,131 @@ function Beschikbaarheid({
 				</h3>
 				<form className="relative">
 					<div className="grid grid-cols-7">
-						<Input
+						<TimeRangePicker
 							name="Ma"
 							className="mr-5"
-							value={state?.availability?.available_times.monday}
-							onChange={(e) =>
-								setState({
-									...state!,
-									availability: {
-										available_times: {
-											...state.availability
-												.available_times,
-											monday: e.target.value,
-										},
-										unavailable_times: {
-											...state.availability
-												.unavailable_times,
-										},
-									},
-								})
+							startValue={
+								state?.availability?.available_times.monday
+									?.start_time
+							}
+							endValue={
+								state?.availability?.available_times.monday
+									.end_time
+							}
+							onChangeStartTime={(event) =>
+								handleChange(event, "monday", "start_time")
+							}
+							onChangeEndTime={(event) =>
+								handleChange(event, "monday", "end_time")
 							}
 						/>
-						<Input
+
+						<TimeRangePicker
 							name="Di"
 							className="mr-5"
-							value={
-								state?.availability?.available_times.thursday
+							startValue={
+								state?.availability?.available_times.tuesday
+									?.start_time
 							}
-							onChange={(e) =>
-								setState({
-									...state!,
-									availability: {
-										available_times: {
-											...state.availability
-												.available_times,
-											thursday: e.target.value,
-										},
-										unavailable_times: {
-											...state.availability
-												.unavailable_times,
-										},
-									},
-								})
+							endValue={
+								state?.availability?.available_times.tuesday
+									?.end_time
+							}
+							onChangeStartTime={(event) =>
+								handleChange(event, "tuesday", "start_time")
+							}
+							onChangeEndTime={(event) =>
+								handleChange(event, "tuesday", "end_time")
 							}
 						/>
-						<Input
+						<TimeRangePicker
 							name="Wo"
 							className="mr-5"
-							value={
+							startValue={
 								state?.availability?.available_times.wednesday
+									?.start_time
 							}
-							onChange={(e) =>
-								setState({
-									...state!,
-									availability: {
-										available_times: {
-											...state.availability
-												.available_times,
-											wednesday: e.target.value,
-										},
-										unavailable_times: {
-											...state.availability
-												.unavailable_times,
-										},
-									},
-								})
+							endValue={
+								state?.availability?.available_times.wednesday
+									?.end_time
+							}
+							onChangeStartTime={(event) =>
+								handleChange(event, "wednesday", "start_time")
+							}
+							onChangeEndTime={(event) =>
+								handleChange(event, "wednesday", "end_time")
 							}
 						/>
-						<Input
+						<TimeRangePicker
 							name="Do"
 							className="mr-5"
-							value={
-								state?.availability?.available_times.thuesday
+							startValue={
+								state?.availability?.available_times.thursday
+									?.start_time
 							}
-							onChange={(e) =>
-								setState({
-									...state!,
-									availability: {
-										available_times: {
-											...state.availability
-												.available_times,
-											thuesday: e.target.value,
-										},
-										unavailable_times: {
-											...state.availability
-												.unavailable_times,
-										},
-									},
-								})
+							endValue={
+								state?.availability?.available_times.thursday
+									?.end_time
+							}
+							onChangeStartTime={(event) =>
+								handleChange(event, "thursday", "start_time")
+							}
+							onChangeEndTime={(event) =>
+								handleChange(event, "thursday", "end_time")
 							}
 						/>
-						<Input
+						<TimeRangePicker
 							name="Vr"
 							className="mr-5"
-							value={state?.availability?.available_times.friday}
-							onChange={(e) =>
-								setState({
-									...state!,
-									availability: {
-										available_times: {
-											...state.availability
-												.available_times,
-											friday: e.target.value,
-										},
-										unavailable_times: {
-											...state.availability
-												.unavailable_times,
-										},
-									},
-								})
+							startValue={
+								state?.availability?.available_times.friday
+									?.start_time
+							}
+							endValue={
+								state?.availability?.available_times.friday
+									?.end_time
+							}
+							onChangeStartTime={(event) =>
+								handleChange(event, "friday", "start_time")
+							}
+							onChangeEndTime={(event) =>
+								handleChange(event, "friday", "end_time")
 							}
 						/>
-						<Input
+						<TimeRangePicker
 							name="Za"
 							className="mr-5"
-							value={
+							startValue={
 								state?.availability?.available_times.saturday
+									?.start_time
 							}
-							onChange={(e) =>
-								setState({
-									...state!,
-									availability: {
-										available_times: {
-											...state.availability
-												.available_times,
-											saturday: e.target.value,
-										},
-										unavailable_times: {
-											...state.availability
-												.unavailable_times,
-										},
-									},
-								})
+							endValue={
+								state?.availability?.available_times.saturday
+									?.end_time
+							}
+							onChangeStartTime={(event) =>
+								handleChange(event, "saturday", "start_time")
+							}
+							onChangeEndTime={(event) =>
+								handleChange(event, "saturday", "end_time")
 							}
 						/>
-						<Input
+						<TimeRangePicker
 							name="Zo"
 							className="mr-5"
-							value={state?.availability?.available_times.sunday}
-							onChange={(e) =>
-								setState({
-									...state!,
-									availability: {
-										available_times: {
-											...state.availability
-												.available_times,
-											sunday: e.target.value,
-										},
-										unavailable_times: {
-											...state.availability
-												.unavailable_times,
-										},
-									},
-								})
+							startValue={
+								state?.availability?.available_times.sunday
+									?.start_time
+							}
+							endValue={
+								state?.availability?.available_times.sunday
+									?.end_time
+							}
+							onChangeStartTime={(event) =>
+								handleChange(event, "sunday", "start_time")
+							}
+							onChangeEndTime={(event) =>
+								handleChange(event, "sunday", "end_time")
 							}
 						/>
 					</div>
@@ -214,7 +217,7 @@ const EditKapper: NextPage = () => {
 			<div className="mx-auto grid grid-cols-3 w-full">
 				<div className="m-3 bg-white rounded-lg border-2 border-light-gray">
 					<KapperForm
-						onSubmit={"a"}
+						onSubmit={() => console.log("a")}
 						formTitle="Kapper bewerken"
 						submitName="Bewerken"
 						data={""}
@@ -229,7 +232,7 @@ const EditKapper: NextPage = () => {
 					</div>
 					<div className="m-3 bg-white rounded-lg border-2 border-light-gray">
 						<div className="text-xl text-indigo-500 font-bold m-5">
-							Eerst volgende Afspraken
+							Agenda
 						</div>
 					</div>
 				</div>
