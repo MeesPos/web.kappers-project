@@ -155,18 +155,59 @@ function Beschikbaarheid({
 					</div>
 					Pauzes
 					<div className="grid grid-cols-7 mt-1">
-						<TimeRangePicker
-							name="Ma"
-							className="mr-5"
-							startValue={state?.monday?.start_time}
-							endValue={state?.monday?.end_time}
-							onChangeStartTime={(event) =>
-								handlePauseChange(event, "monday", "start_time")
-							}
-							onChangeEndTime={(event) =>
-								handleChange(event, "monday", "end_time")
-							}
-						/>
+						{state?.monday.pauses!.length > 0 ? (
+							state?.monday.pauses!.map((items, idx) => {
+								{
+									if (state?.monday.pauses!.length > 0) {
+										return (
+											<TimeRangePicker
+												key={idx}
+												name="Ma"
+												label={true}
+												className="mr-5"
+												startValue={items.start_time}
+												endValue={items?.end_time}
+												onChangeStartTime={(event) =>
+													handleChange(
+														event,
+														"monday",
+														"start_time"
+													)
+												}
+												onChangeEndTime={(event) =>
+													handleChange(
+														event,
+														"monday",
+														"end_time"
+													)
+												}
+											/>
+										);
+									}
+								}
+							})
+						) : (
+							<button
+								className="border-2 border-light-gray rounded-md mr-5"
+								onClick={() =>
+									setState({
+										...state!,
+										monday: {
+											...state.monday,
+											pauses: [
+												...state.monday.pauses!,
+												{
+													start_time: "12:00",
+													end_time: "12:30",
+												},
+											],
+										},
+									})
+								}
+							>
+								+
+							</button>
+						)}
 
 						<TimeRangePicker
 							name="Di"
@@ -258,7 +299,6 @@ function Beschikbaarheid({
 const EditKapper: NextPage = () => {
 	const [hairdresserInfo, setHairdresserInfo] = useState<Hairdresser>();
 	const [availability, setAvailability] = useState<Availability>();
-
 	const router = useRouter();
 	useEffect(() => {
 		if (!router.isReady) return;
@@ -279,6 +319,8 @@ const EditKapper: NextPage = () => {
 						onSubmit={() => console.log("a")}
 						formTitle="Kapper bewerken"
 						submitName="Bewerken"
+						state={hairdresserInfo}
+						setState={setHairdresserInfo}
 						data={""}
 					/>
 				</div>

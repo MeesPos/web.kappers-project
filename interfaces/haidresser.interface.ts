@@ -3,7 +3,7 @@ import { Hash } from "crypto";
 export interface StartEndTime {
 	start_time: string;
 	end_time: string;
-	pauses: StartEndTime[];
+	pauses?: StartEndTime[];
 }
 
 export interface Availability {
@@ -19,6 +19,6 @@ export interface Availability {
 export interface Hairdresser {
 	name: string;
 	email: string;
-	password?: Hash;
+	password?: string;
 	availability: Availability;
 }

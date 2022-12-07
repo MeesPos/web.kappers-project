@@ -1,19 +1,26 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { Input } from "./Input";
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
+import { Hairdresser } from "../interfaces/haidresser.interface";
 export function KapperForm({
 	onSubmit,
 	formTitle,
 	submitName,
+	state,
+	setState,
 	data,
 }: {
 	onSubmit: any;
+	state: Hairdresser | undefined;
+	setState: Dispatch<SetStateAction<Hairdresser | undefined>>;
 	formTitle: string;
 	submitName: string;
 	data: any;
 }) {
 	const [selectedFile, setSelectedFile] = useState<File>();
+	const [notSamePassword, setNotSamePassword] = useState<boolean>();
+
 	const [preview, setPreview] = useState<string>();
 	const inputFile = useRef<HTMLInputElement | null>(null);
 
@@ -91,18 +98,58 @@ export function KapperForm({
 						</div>
 					</div>
 				</div>
-				<Input name="Naam" className="my-4" />
-				<Input name="E-Mailadres" className="my-4" />
-				<Input name="Wachtwoord" className="my-4" type="password" />
 				<Input
-					name="Herhaal Wachtwoord"
+					name="Naam"
+					className="my-4"
+					value={state?.name}
+					onChange={(e) =>
+						setState({
+							...state!,
+							name: e.target.value,
+						})
+					}
+				/>
+				<Input
+					name="E-Mailadres"
+					className="my-4"
+					value={state?.email}
+					onChange={(e) =>
+						setState({
+							...state!,
+							email: e.target.value,
+						})
+					}
+				/>
+				<Input
+					name="Wachtwoord"
 					className="my-4"
 					type="password"
-					value=""
+					value={state?.password}
+					onChange={(e) =>
+						setState({
+							...state!,
+							password: e.target.value,
+						})
+					}
 				/>
+				<Input
+					name="Herhaal Wachtwoord"
+					className="mt-4"
+					type="password"
+					onChange={(e) => {
+						e.target.value != state?.password
+							? setNotSamePassword(true)
+							: setNotSamePassword(false);
+					}}
+				/>
+				{notSamePassword ? (
+					<span className="text-red-500 absolute">
+						Wachtwoorden komen niet overeen
+					</span>
+				) : null}
 				<button
 					type="submit"
-					className="text-white hover:cursor-pointer bg-indigo-500 rounded-md font-semibold w-full h-8 "
+					className="text-white hover:cursor-pointer bg-indigo-500 rounded-md font-semibold w-full h-8 mt-8"
 				>
 					{submitName}
 				</button>
