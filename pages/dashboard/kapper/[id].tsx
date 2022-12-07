@@ -28,7 +28,6 @@ function Beschikbaarheid({
 		day: keyof Availability,
 		time: keyof StartEndTime
 	) {
-		console.log(state);
 		const result = event.target.value.replace(/[^0-9:]/g, "");
 		setState({
 			...state,
@@ -43,12 +42,15 @@ function Beschikbaarheid({
 		day: keyof Availability,
 		time: keyof StartEndTime
 	) {
+		event.preventDefault();
+
 		const result = event.target.value.replace(/[^0-9:]/g, "");
+
 		setState({
 			...state!,
 			[day]: {
 				...state[day],
-				pauses: result,
+				pauses: [...state[day].pauses!, { [time]: result }],
 			},
 		});
 	}
@@ -161,24 +163,24 @@ function Beschikbaarheid({
 								return (
 									<TimeRangePicker
 										key={idx}
-										name="Ma"
-										className='mb-1'
-										startValue={items.start_time}
-										endValue={items?.end_time}
-										onChangeStartTime={(event) =>
-											handleChange(
-												event,
-												"monday",
-												"start_time"
-											)
-										}
-										onChangeEndTime={(event) =>
-											handleChange(
-												event,
-												"monday",
-												"end_time"
-											)
-										}
+										name={String(idx)}
+										className="mb-1"
+										// startValue={items.start_time}
+										// endValue={items?.end_time}
+										// onChangeStartTime={(event) =>
+										// 	handlePauseChange(
+										// 		event,
+										// 		"monday",
+										// 		"start_time"
+										// 	)
+										// }
+										// onChangeEndTime={(event) =>
+										// 	handlePauseChange(
+										// 		event,
+										// 		"monday",
+										// 		"end_time"
+										// 	)
+										// }
 									/>
 								);
 							})}
@@ -212,19 +214,19 @@ function Beschikbaarheid({
 								return (
 									<TimeRangePicker
 										key={idx}
-										name="Ma"
-										className='mb-1'
+										name={String(idx)}
+										className="mb-1"
 										startValue={items.start_time}
 										endValue={items?.end_time}
 										onChangeStartTime={(event) =>
-											handleChange(
+											handlePauseChange(
 												event,
 												"tuesday",
 												"start_time"
 											)
 										}
 										onChangeEndTime={(event) =>
-											handleChange(
+											handlePauseChange(
 												event,
 												"tuesday",
 												"end_time"
@@ -262,19 +264,19 @@ function Beschikbaarheid({
 								return (
 									<TimeRangePicker
 										key={idx}
-										name="Wo"
-										className='mb-1'
+										name={String(idx)}
+										className="mb-1"
 										startValue={items.start_time}
 										endValue={items?.end_time}
 										onChangeStartTime={(event) =>
-											handleChange(
+											handlePauseChange(
 												event,
 												"wednesday",
 												"start_time"
 											)
 										}
 										onChangeEndTime={(event) =>
-											handleChange(
+											handlePauseChange(
 												event,
 												"wednesday",
 												"end_time"
@@ -312,19 +314,19 @@ function Beschikbaarheid({
 								return (
 									<TimeRangePicker
 										key={idx}
-										name="Do"
-										className='mb-1'
+										name={String(idx)}
+										className="mb-1"
 										startValue={items.start_time}
 										endValue={items?.end_time}
 										onChangeStartTime={(event) =>
-											handleChange(
+											handlePauseChange(
 												event,
 												"thursday",
 												"start_time"
 											)
 										}
 										onChangeEndTime={(event) =>
-											handleChange(
+											handlePauseChange(
 												event,
 												"thursday",
 												"end_time"
@@ -362,20 +364,19 @@ function Beschikbaarheid({
 								return (
 									<TimeRangePicker
 										key={idx}
-										name="Vr"
+										name={String(idx)}
 										className="mb-1"
-										
 										startValue={items.start_time}
 										endValue={items?.end_time}
 										onChangeStartTime={(event) =>
-											handleChange(
+											handlePauseChange(
 												event,
 												"friday",
 												"start_time"
 											)
 										}
 										onChangeEndTime={(event) =>
-											handleChange(
+											handlePauseChange(
 												event,
 												"friday",
 												"end_time"
@@ -413,19 +414,19 @@ function Beschikbaarheid({
 								return (
 									<TimeRangePicker
 										key={idx}
-										name="Za"
-										className='mb-1'
+										name={String(idx)}
+										className="mb-1"
 										startValue={items.start_time}
 										endValue={items?.end_time}
 										onChangeStartTime={(event) =>
-											handleChange(
+											handlePauseChange(
 												event,
 												"saturday",
 												"start_time"
 											)
 										}
 										onChangeEndTime={(event) =>
-											handleChange(
+											handlePauseChange(
 												event,
 												"saturday",
 												"end_time"
@@ -459,23 +460,23 @@ function Beschikbaarheid({
 							</button>
 						</div>
 						<div className="mr-5">
-						{state?.sunday.pauses!.map((items, idx) => {
+							{state?.sunday.pauses!.map((items, idx) => {
 								return (
 									<TimeRangePicker
 										key={idx}
-										name="Zo"
+										name={String(idx)}
 										className="mb-1"
 										startValue={items.start_time}
 										endValue={items?.end_time}
 										onChangeStartTime={(event) =>
-											handleChange(
+											handlePauseChange(
 												event,
 												"sunday",
 												"start_time"
 											)
 										}
 										onChangeEndTime={(event) =>
-											handleChange(
+											handlePauseChange(
 												event,
 												"sunday",
 												"end_time"
