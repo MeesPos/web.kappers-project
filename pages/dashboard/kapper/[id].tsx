@@ -21,16 +21,17 @@ function Beschikbaarheid({
 	setState,
 }: {
 	state: Availability;
-	setState: Dispatch<SetStateAction<Availability | undefined>>;
+	setState: Dispatch<SetStateAction<Availability>>;
 }) {
 	function handleChange(
 		event: ChangeEvent<HTMLInputElement>,
 		day: keyof Availability,
 		time: keyof StartEndTime
 	) {
+		console.log(state);
 		const result = event.target.value.replace(/[^0-9:]/g, "");
 		setState({
-			...state!,
+			...state,
 			[day]: {
 				...state[day],
 				[time]: result,
@@ -154,133 +155,359 @@ function Beschikbaarheid({
 						/>
 					</div>
 					Pauzes
-					<div className="grid grid-cols-7 mt-1">
-						{state?.monday.pauses!.length > 0 ? (
-							state?.monday.pauses!.map((items, idx) => {
-								{
-									if (state?.monday.pauses!.length > 0) {
-										return (
-											<TimeRangePicker
-												key={idx}
-												name="Ma"
-												label={true}
-												className="mr-5"
-												startValue={items.start_time}
-												endValue={items?.end_time}
-												onChangeStartTime={(event) =>
-													handleChange(
-														event,
-														"monday",
-														"start_time"
-													)
-												}
-												onChangeEndTime={(event) =>
-													handleChange(
-														event,
-														"monday",
-														"end_time"
-													)
-												}
-											/>
-										);
-									}
-								}
-							})
-						) : (
+					<div className="grid grid-cols-7 mt-1	">
+						<div className="mr-5">
+							{state?.monday.pauses!.map((items, idx) => {
+								return (
+									<TimeRangePicker
+										key={idx}
+										name="Ma"
+										className='mb-1'
+										startValue={items.start_time}
+										endValue={items?.end_time}
+										onChangeStartTime={(event) =>
+											handleChange(
+												event,
+												"monday",
+												"start_time"
+											)
+										}
+										onChangeEndTime={(event) =>
+											handleChange(
+												event,
+												"monday",
+												"end_time"
+											)
+										}
+									/>
+								);
+							})}
 							<button
-								className="border-2 border-light-gray rounded-md mr-5"
+								className="border-2 border-light-gray rounded-md mr-5 w-full "
+								type="button"
 								onClick={() =>
-									setState({
-										...state!,
-										monday: {
-											...state.monday,
-											pauses: [
-												...state.monday.pauses!,
-												{
-													start_time: "12:00",
-													end_time: "12:30",
-												},
-											],
-										},
+									setState((prevv) => {
+										return {
+											...prevv!,
+											monday: {
+												...prevv.monday,
+												pauses: [
+													...prevv.monday?.pauses!,
+													{
+														start_time: "",
+														end_time: "",
+													},
+												],
+											},
+										};
 									})
 								}
 							>
 								+
 							</button>
-						)}
+						</div>
 
-						<TimeRangePicker
-							name="Di"
-							className="mr-5"
-							startValue={state?.tuesday?.start_time}
-							endValue={state?.tuesday?.end_time}
-							onChangeStartTime={(event) =>
-								handleChange(event, "tuesday", "start_time")
-							}
-							onChangeEndTime={(event) =>
-								handleChange(event, "tuesday", "end_time")
-							}
-						/>
-						<TimeRangePicker
-							name="Wo"
-							className="mr-5"
-							startValue={state?.wednesday?.start_time}
-							endValue={state?.wednesday?.end_time}
-							onChangeStartTime={(event) =>
-								handleChange(event, "wednesday", "start_time")
-							}
-							onChangeEndTime={(event) =>
-								handleChange(event, "wednesday", "end_time")
-							}
-						/>
-						<TimeRangePicker
-							name="Do"
-							className="mr-5"
-							startValue={state?.thursday?.start_time}
-							endValue={state?.thursday?.end_time}
-							onChangeStartTime={(event) =>
-								handleChange(event, "thursday", "start_time")
-							}
-							onChangeEndTime={(event) =>
-								handleChange(event, "thursday", "end_time")
-							}
-						/>
-						<TimeRangePicker
-							name="Vr"
-							className="mr-5"
-							startValue={state?.friday?.start_time}
-							endValue={state?.friday?.end_time}
-							onChangeStartTime={(event) =>
-								handleChange(event, "friday", "start_time")
-							}
-							onChangeEndTime={(event) =>
-								handleChange(event, "friday", "end_time")
-							}
-						/>
-						<TimeRangePicker
-							name="Za"
-							className="mr-5"
-							startValue={state?.saturday?.start_time}
-							endValue={state?.saturday?.end_time}
-							onChangeStartTime={(event) =>
-								handleChange(event, "saturday", "start_time")
-							}
-							onChangeEndTime={(event) =>
-								handleChange(event, "saturday", "end_time")
-							}
-						/>
-						<TimeRangePicker
-							name="Zo"
-							className="mr-5"
-							startValue={state?.sunday?.start_time}
-							endValue={state?.sunday?.end_time}
-							onChangeStartTime={(event) =>
-								handleChange(event, "sunday", "start_time")
-							}
-							onChangeEndTime={(event) =>
-								handleChange(event, "sunday", "end_time")
-							}
-						/>
+						<div className="mr-5">
+							{state?.tuesday.pauses!.map((items, idx) => {
+								return (
+									<TimeRangePicker
+										key={idx}
+										name="Ma"
+										className='mb-1'
+										startValue={items.start_time}
+										endValue={items?.end_time}
+										onChangeStartTime={(event) =>
+											handleChange(
+												event,
+												"tuesday",
+												"start_time"
+											)
+										}
+										onChangeEndTime={(event) =>
+											handleChange(
+												event,
+												"tuesday",
+												"end_time"
+											)
+										}
+									/>
+								);
+							})}
+							<button
+								className="border-2 border-light-gray rounded-md mr-5 w-full"
+								type="button"
+								onClick={() =>
+									setState((prevv) => {
+										return {
+											...prevv!,
+											tuesday: {
+												...prevv.tuesday,
+												pauses: [
+													...prevv.tuesday?.pauses!,
+													{
+														start_time: "",
+														end_time: "",
+													},
+												],
+											},
+										};
+									})
+								}
+							>
+								+
+							</button>
+						</div>
+						<div className="mr-5">
+							{state?.wednesday.pauses!.map((items, idx) => {
+								return (
+									<TimeRangePicker
+										key={idx}
+										name="Wo"
+										className='mb-1'
+										startValue={items.start_time}
+										endValue={items?.end_time}
+										onChangeStartTime={(event) =>
+											handleChange(
+												event,
+												"wednesday",
+												"start_time"
+											)
+										}
+										onChangeEndTime={(event) =>
+											handleChange(
+												event,
+												"wednesday",
+												"end_time"
+											)
+										}
+									/>
+								);
+							})}
+							<button
+								className="border-2 border-light-gray rounded-md mr-5 w-full"
+								type="button"
+								onClick={() =>
+									setState((prevv) => {
+										return {
+											...prevv!,
+											wednesday: {
+												...prevv.wednesday,
+												pauses: [
+													...prevv.wednesday?.pauses!,
+													{
+														start_time: "",
+														end_time: "",
+													},
+												],
+											},
+										};
+									})
+								}
+							>
+								+
+							</button>
+						</div>
+						<div className="mr-5">
+							{state?.thursday.pauses!.map((items, idx) => {
+								return (
+									<TimeRangePicker
+										key={idx}
+										name="Do"
+										className='mb-1'
+										startValue={items.start_time}
+										endValue={items?.end_time}
+										onChangeStartTime={(event) =>
+											handleChange(
+												event,
+												"thursday",
+												"start_time"
+											)
+										}
+										onChangeEndTime={(event) =>
+											handleChange(
+												event,
+												"thursday",
+												"end_time"
+											)
+										}
+									/>
+								);
+							})}
+							<button
+								className="border-2 border-light-gray rounded-md mr-5 w-full"
+								type="button"
+								onClick={() =>
+									setState((prevv) => {
+										return {
+											...prevv!,
+											thursday: {
+												...prevv.thursday,
+												pauses: [
+													...prevv.thursday?.pauses!,
+													{
+														start_time: "",
+														end_time: "",
+													},
+												],
+											},
+										};
+									})
+								}
+							>
+								+
+							</button>
+						</div>
+						<div className="mr-5">
+							{state?.friday.pauses!.map((items, idx) => {
+								return (
+									<TimeRangePicker
+										key={idx}
+										name="Vr"
+										className="mb-1"
+										
+										startValue={items.start_time}
+										endValue={items?.end_time}
+										onChangeStartTime={(event) =>
+											handleChange(
+												event,
+												"friday",
+												"start_time"
+											)
+										}
+										onChangeEndTime={(event) =>
+											handleChange(
+												event,
+												"friday",
+												"end_time"
+											)
+										}
+									/>
+								);
+							})}
+							<button
+								className="border-2 border-light-gray rounded-md mr-5 w-full"
+								type="button"
+								onClick={() =>
+									setState((prevv) => {
+										return {
+											...prevv!,
+											friday: {
+												...prevv.friday,
+												pauses: [
+													...prevv.friday?.pauses!,
+													{
+														start_time: "",
+														end_time: "",
+													},
+												],
+											},
+										};
+									})
+								}
+							>
+								+
+							</button>
+						</div>
+						<div className="mr-5">
+							{state?.saturday.pauses!.map((items, idx) => {
+								return (
+									<TimeRangePicker
+										key={idx}
+										name="Za"
+										className='mb-1'
+										startValue={items.start_time}
+										endValue={items?.end_time}
+										onChangeStartTime={(event) =>
+											handleChange(
+												event,
+												"saturday",
+												"start_time"
+											)
+										}
+										onChangeEndTime={(event) =>
+											handleChange(
+												event,
+												"saturday",
+												"end_time"
+											)
+										}
+									/>
+								);
+							})}
+							<button
+								className="border-2 border-light-gray rounded-md mr-5 w-full"
+								type="button"
+								onClick={() =>
+									setState((prevv) => {
+										return {
+											...prevv!,
+											saturday: {
+												...prevv.saturday,
+												pauses: [
+													...prevv.saturday?.pauses!,
+													{
+														start_time: "",
+														end_time: "",
+													},
+												],
+											},
+										};
+									})
+								}
+							>
+								+
+							</button>
+						</div>
+						<div className="mr-5">
+						{state?.sunday.pauses!.map((items, idx) => {
+								return (
+									<TimeRangePicker
+										key={idx}
+										name="Zo"
+										className="mb-1"
+										startValue={items.start_time}
+										endValue={items?.end_time}
+										onChangeStartTime={(event) =>
+											handleChange(
+												event,
+												"sunday",
+												"start_time"
+											)
+										}
+										onChangeEndTime={(event) =>
+											handleChange(
+												event,
+												"sunday",
+												"end_time"
+											)
+										}
+									/>
+								);
+							})}
+							<button
+								className="border-2 border-light-gray rounded-md mr-5 w-full"
+								type="button"
+								onClick={() =>
+									setState((prevv) => {
+										return {
+											...prevv!,
+											sunday: {
+												...prevv.sunday,
+												pauses: [
+													...prevv.sunday?.pauses!,
+													{
+														start_time: "",
+														end_time: "",
+													},
+												],
+											},
+										};
+									})
+								}
+							>
+								+
+							</button>
+						</div>
 					</div>
 					<div className="w-full flex">
 						<button
@@ -298,7 +525,43 @@ function Beschikbaarheid({
 
 const EditKapper: NextPage = () => {
 	const [hairdresserInfo, setHairdresserInfo] = useState<Hairdresser>();
-	const [availability, setAvailability] = useState<Availability>();
+	const [availability, setAvailability] = useState<Availability>({
+		monday: {
+			start_time: "",
+			end_time: "",
+			pauses: [],
+		},
+		tuesday: {
+			start_time: "",
+			end_time: "",
+			pauses: [],
+		},
+		wednesday: {
+			start_time: "",
+			end_time: "",
+			pauses: [],
+		},
+		thursday: {
+			start_time: "",
+			end_time: "",
+			pauses: [],
+		},
+		friday: {
+			start_time: "",
+			end_time: "",
+			pauses: [],
+		},
+		saturday: {
+			start_time: "",
+			end_time: "",
+			pauses: [],
+		},
+		sunday: {
+			start_time: "",
+			end_time: "",
+			pauses: [],
+		},
+	});
 	const router = useRouter();
 	useEffect(() => {
 		if (!router.isReady) return;
