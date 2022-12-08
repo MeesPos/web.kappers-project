@@ -23,6 +23,19 @@ function Beschikbaarheid({
 	state: Availability;
 	setState: Dispatch<SetStateAction<Availability>>;
 }) {
+	// function PauseTimePickerAndButton({
+	// 	state,
+	// 	setState,
+	// }: {
+	// 	state: Availability;
+	// 	setState: Dispatch<SetStateAction<Availability>>;
+	// }) {
+	// 	const handlePlusButtonClick = (e: Event) => {
+
+	// 	};
+
+	// 	return(<></>)
+	// }
 	function handleChange(
 		event: ChangeEvent<HTMLInputElement>,
 		day: keyof Availability,
@@ -45,12 +58,19 @@ function Beschikbaarheid({
 		event.preventDefault();
 
 		const result = event.target.value.replace(/[^0-9:]/g, "");
-
+		const newItem = { [time]: result };
+		let arr = [...state[day].pauses!];
+		if (arr.length > 1) {
+			arr[arr.length - 1] = { [time]: result };
+			console.log(arr);
+		} else {
+			arr[0] = { [time]: result };
+		}
 		setState({
 			...state!,
 			[day]: {
 				...state[day],
-				pauses: [...state[day].pauses!, { [time]: result }],
+				pauses: arr,
 			},
 		});
 	}
@@ -165,22 +185,22 @@ function Beschikbaarheid({
 										key={idx}
 										name={String(idx)}
 										className="mb-1"
-										// startValue={items.start_time}
-										// endValue={items?.end_time}
-										// onChangeStartTime={(event) =>
-										// 	handlePauseChange(
-										// 		event,
-										// 		"monday",
-										// 		"start_time"
-										// 	)
-										// }
-										// onChangeEndTime={(event) =>
-										// 	handlePauseChange(
-										// 		event,
-										// 		"monday",
-										// 		"end_time"
-										// 	)
-										// }
+										startValue={items.start_time}
+										endValue={items?.end_time}
+										onChangeStartTime={(event) =>
+											handlePauseChange(
+												event,
+												"monday",
+												"start_time"
+											)
+										}
+										onChangeEndTime={(event) =>
+											handlePauseChange(
+												event,
+												"monday",
+												"end_time"
+											)
+										}
 									/>
 								);
 							})}
