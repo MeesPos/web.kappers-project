@@ -15,6 +15,7 @@ import {
 	Availability,
 	StartEndTime,
 } from "../../../interfaces/haidresser.interface";
+import { MouseEvent } from "react";
 
 function Beschikbaarheid({
 	state,
@@ -23,30 +24,16 @@ function Beschikbaarheid({
 	state: Availability;
 	setState: Dispatch<SetStateAction<Availability>>;
 }) {
-	// function PauseTimePickerAndButton({
-	// 	state,
-	// 	setState,
-	// }: {
-	// 	state: Availability;
-	// 	setState: Dispatch<SetStateAction<Availability>>;
-	// }) {
-	// 	const handlePlusButtonClick = (e: Event) => {
-
-	// 	};
-
-	// 	return(<></>)
-	// }
 	function handleChange(
 		event: ChangeEvent<HTMLInputElement>,
 		day: keyof Availability,
 		time: keyof StartEndTime
 	) {
-		const result = event.target.value.replace(/[^0-9:]/g, "");
 		setState({
 			...state,
 			[day]: {
 				...state[day],
-				[time]: result,
+				[time]: event.target.value,
 			},
 		});
 	}
@@ -57,14 +44,11 @@ function Beschikbaarheid({
 	) {
 		event.preventDefault();
 
-		const result = event.target.value.replace(/[^0-9:]/g, "");
-		const newItem = { [time]: result };
 		let arr = [...state[day].pauses!];
 		if (arr.length > 1) {
-			arr[arr.length - 1] = { [time]: result };
-			console.log(arr);
+			arr[arr.length - 1] = { [time]: event.target.value };
 		} else {
-			arr[0] = { [time]: result };
+			arr[0] = { [time]: event.target.value };
 		}
 		setState({
 			...state!,
@@ -74,10 +58,32 @@ function Beschikbaarheid({
 			},
 		});
 	}
+	function handleAddPauseClick(
+		event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>,
+		day: keyof Availability
+	) {
+		event.preventDefault();
+
+		setState((prevv) => {
+			return {
+				...prevv!,
+				[day]: {
+					...prevv[day],
+					pauses: [
+						...prevv[day]?.pauses!,
+						{
+							start_time: "",
+							end_time: "",
+						},
+					],
+				},
+			};
+		});
+	}
 
 	return (
 		<div className="">
-			<div className="m-5 ">
+			<div className="m-5">
 				<h3 className="text-xl font-bold text-indigo-500">
 					Beschikbaarheid
 				</h3>
@@ -178,7 +184,7 @@ function Beschikbaarheid({
 					</div>
 					Pauzes
 					<div className="grid grid-cols-7 mt-1	">
-						<div className="mr-5">
+						<div className="mr-3.5">
 							{state?.monday.pauses!.map((items, idx) => {
 								return (
 									<TimeRangePicker
@@ -205,31 +211,17 @@ function Beschikbaarheid({
 								);
 							})}
 							<button
-								className="border-2 border-light-gray rounded-md mr-5 w-full "
+								className="border-2 border-light-gray rounded-md w-full"
 								type="button"
-								onClick={() =>
-									setState((prevv) => {
-										return {
-											...prevv!,
-											monday: {
-												...prevv.monday,
-												pauses: [
-													...prevv.monday?.pauses!,
-													{
-														start_time: "",
-														end_time: "",
-													},
-												],
-											},
-										};
-									})
+								onClick={(e) =>
+									handleAddPauseClick(e, "monday")
 								}
 							>
 								+
 							</button>
 						</div>
 
-						<div className="mr-5">
+						<div className="mr-3.5">
 							{state?.tuesday.pauses!.map((items, idx) => {
 								return (
 									<TimeRangePicker
@@ -258,28 +250,14 @@ function Beschikbaarheid({
 							<button
 								className="border-2 border-light-gray rounded-md mr-5 w-full"
 								type="button"
-								onClick={() =>
-									setState((prevv) => {
-										return {
-											...prevv!,
-											tuesday: {
-												...prevv.tuesday,
-												pauses: [
-													...prevv.tuesday?.pauses!,
-													{
-														start_time: "",
-														end_time: "",
-													},
-												],
-											},
-										};
-									})
+								onClick={(e) =>
+									handleAddPauseClick(e, "tuesday")
 								}
 							>
 								+
 							</button>
 						</div>
-						<div className="mr-5">
+						<div className="mr-3.5">
 							{state?.wednesday.pauses!.map((items, idx) => {
 								return (
 									<TimeRangePicker
@@ -308,28 +286,14 @@ function Beschikbaarheid({
 							<button
 								className="border-2 border-light-gray rounded-md mr-5 w-full"
 								type="button"
-								onClick={() =>
-									setState((prevv) => {
-										return {
-											...prevv!,
-											wednesday: {
-												...prevv.wednesday,
-												pauses: [
-													...prevv.wednesday?.pauses!,
-													{
-														start_time: "",
-														end_time: "",
-													},
-												],
-											},
-										};
-									})
+								onClick={(e) =>
+									handleAddPauseClick(e, "wednesday")
 								}
 							>
 								+
 							</button>
 						</div>
-						<div className="mr-5">
+						<div className="mr-3.5">
 							{state?.thursday.pauses!.map((items, idx) => {
 								return (
 									<TimeRangePicker
@@ -358,28 +322,14 @@ function Beschikbaarheid({
 							<button
 								className="border-2 border-light-gray rounded-md mr-5 w-full"
 								type="button"
-								onClick={() =>
-									setState((prevv) => {
-										return {
-											...prevv!,
-											thursday: {
-												...prevv.thursday,
-												pauses: [
-													...prevv.thursday?.pauses!,
-													{
-														start_time: "",
-														end_time: "",
-													},
-												],
-											},
-										};
-									})
+								onClick={(e) =>
+									handleAddPauseClick(e, "thursday")
 								}
 							>
 								+
 							</button>
 						</div>
-						<div className="mr-5">
+						<div className="mr-3.5">
 							{state?.friday.pauses!.map((items, idx) => {
 								return (
 									<TimeRangePicker
@@ -406,30 +356,16 @@ function Beschikbaarheid({
 								);
 							})}
 							<button
-								className="border-2 border-light-gray rounded-md mr-5 w-full"
+								className="border-2 border-light-gray rounded-md  w-full"
 								type="button"
-								onClick={() =>
-									setState((prevv) => {
-										return {
-											...prevv!,
-											friday: {
-												...prevv.friday,
-												pauses: [
-													...prevv.friday?.pauses!,
-													{
-														start_time: "",
-														end_time: "",
-													},
-												],
-											},
-										};
-									})
+								onClick={(e) =>
+									handleAddPauseClick(e, "friday")
 								}
 							>
 								+
 							</button>
 						</div>
-						<div className="mr-5">
+						<div className="mr-3.5">
 							{state?.saturday.pauses!.map((items, idx) => {
 								return (
 									<TimeRangePicker
@@ -458,28 +394,14 @@ function Beschikbaarheid({
 							<button
 								className="border-2 border-light-gray rounded-md mr-5 w-full"
 								type="button"
-								onClick={() =>
-									setState((prevv) => {
-										return {
-											...prevv!,
-											saturday: {
-												...prevv.saturday,
-												pauses: [
-													...prevv.saturday?.pauses!,
-													{
-														start_time: "",
-														end_time: "",
-													},
-												],
-											},
-										};
-									})
+								onClick={(e) =>
+									handleAddPauseClick(e, "saturday")
 								}
 							>
 								+
 							</button>
 						</div>
-						<div className="mr-5">
+						<div className="mr-3.5">
 							{state?.sunday.pauses!.map((items, idx) => {
 								return (
 									<TimeRangePicker
@@ -508,22 +430,8 @@ function Beschikbaarheid({
 							<button
 								className="border-2 border-light-gray rounded-md mr-5 w-full"
 								type="button"
-								onClick={() =>
-									setState((prevv) => {
-										return {
-											...prevv!,
-											sunday: {
-												...prevv.sunday,
-												pauses: [
-													...prevv.sunday?.pauses!,
-													{
-														start_time: "",
-														end_time: "",
-													},
-												],
-											},
-										};
-									})
+								onClick={(e) =>
+									handleAddPauseClick(e, "sunday")
 								}
 							>
 								+
@@ -597,8 +505,8 @@ const EditKapper: NextPage = () => {
 
 	return (
 		<DashboardWrapper title="Kapper">
-			<div className="mx-auto grid grid-cols-3 w-full">
-				<div className="m-3 bg-white rounded-lg border-2 border-light-gray">
+			<div className="mx-auto grid grid-cols-10 w-full">
+				<div className="m-3 bg-white rounded-lg border-2 col-span-3 border-light-gray">
 					<KapperForm
 						onSubmit={() => console.log("a")}
 						formTitle="Kapper bewerken"
@@ -608,7 +516,7 @@ const EditKapper: NextPage = () => {
 						data={""}
 					/>
 				</div>
-				<div className="col-span-2">
+				<div className="col-span-7">
 					<div className="m-3 bg-white rounded-lg border-2 border-light-gray">
 						<Beschikbaarheid
 							state={availability!}
