@@ -88,7 +88,7 @@ function Beschikbaarheid({
 					Beschikbaarheid
 				</h3>
 				<form className="relative">
-					<div className="grid grid-cols-7">
+					<div className="grid grid-cols-7 mb-2">
 						<TimeRangePicker
 							name="Ma"
 							label={true}
