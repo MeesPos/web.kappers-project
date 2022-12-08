@@ -7,7 +7,6 @@ const Home: NextPage = () => {
 		<>
 			<DashboardWrapper title="Dashboard">
 				<div className="grid grid-cols-3">
-					{/* Content */}
 					<div className="bg-white rounded-lg m-1 col-span-2">
 						<h2 className=" m-3 text-xl font-bold text-indigo-600">
 							Eerst volgende afspraken
