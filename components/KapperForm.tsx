@@ -2,7 +2,7 @@ import React, { Dispatch, SetStateAction } from "react";
 import { Input } from "./Input";
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
-import { Hairdresser } from "../interfaces/haidresser.interface";
+import { Hairdresser } from "../types/haidresser.interface";
 export function KapperForm({
 	onSubmit,
 	formTitle,

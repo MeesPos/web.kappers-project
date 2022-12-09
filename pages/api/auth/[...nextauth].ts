@@ -28,32 +28,27 @@ export const authOptions: NextAuthOptions = {
 					email: string;
 					password: string;
 				};
-				console.log(email, password);
 				try {
-					const data = await fetch(
-						process.env.NEXT_PUBLIC_API_URL + "/login",
-						{
-							method: "POST",
-							body: JSON.stringify({
-								email: email,
-								password: password,
-							}),
-							headers: {
-								"Content-Type": "application/json",
-							},
-						}
-					);
+					const data = await fetch(process.env.API_URL + "/login", {
+						method: "POST",
+						body: JSON.stringify({
+							email: email,
+							password: password,
+						}),
+						headers: {
+							"Content-Type": "application/json",
+						},
+					});
 
 					if (data.status === 401) {
 						return null;
 					}
 					if (data.status === 200) {
-						return data.json();
+						return await data.json();
 					}
 				} catch (error) {
-					console.log(error);
-
-					return error;
+					console.error(error);
+					return null;
 				}
 			},
 		}),
@@ -67,15 +62,12 @@ export const authOptions: NextAuthOptions = {
 			return token;
 		},
 		session: async ({ session, token }) => {
-			//@ts-ignore
 			if (token.data.user) {
-				//@ts-ignore
 				session.user = token.data.user;
 			}
 
-			//@ts-ignore
 			session.accessToken = token.data.accessToken;
-			//@ts-ignore
+
 			session.refreshToken = token.data.refreshToken;
 
 			return session;

@@ -14,7 +14,7 @@ import {
 	Hairdresser,
 	Availability,
 	StartEndTime,
-} from "../../../interfaces/haidresser.interface";
+} from "../../../types/haidresser.interface";
 import { MouseEvent } from "react";
 import { emptyAvailability } from "../../../utils/emptyAvailability";
 
