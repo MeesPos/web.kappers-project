@@ -22,7 +22,7 @@ const Login: NextPage = () => {
 			password: userInfo.password,
 			callbackUrl: "/dashboard",
 		});
-		console.log("resss", res);
+
 		if (res?.status === 401) {
 			setError("Onjuist e-mailadres en wachtwoord.");
 		} else if (res?.ok) {
