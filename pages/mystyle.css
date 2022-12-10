@@ -1,0 +1,147 @@
+
+.test1 {
+    place-items: center;
+}
+
+body {
+    background-color: lightgray;
+}
+
+.achtergrondreservering {
+    position: relative;
+    margin: auto;
+    border-radius: 25px;
+    padding: 20px;
+    width: 1200px;
+    height: 800px;
+    background-color: white;
+}
+
+.links {
+    float: left;
+    padding: 20px;
+    width: 440px;
+    height: 780px;
+    background-color: white;
+    text-align: center;
+
+}
+
+.rechts {
+    margin-left: 40%;
+    width: 600px;
+    height: 780px;
+    padding: 20px;
+}
+
+p {
+    background-color: white;
+}
+
+.kleurselecteer {
+    color: #6366F1;
+    font-family: 'Inter';
+    font-weight: bold;
+}
+
+.kleurselecteer2 {
+    color: #6366F1;
+    font-family: 'Inter';
+    font-weight: normal;
+}
+
+h1 {
+    color: #6366F1;
+    font-family: 'Inter';
+    font-weight: bold;
+}
+
+h4 {
+    color: #6366F1;
+    font-family: 'Inter';
+    font-weight: normal;
+}
+
+button {
+    background-color: white;
+    width: 650px;
+    border-radius: 10px 0px 0px 10px;
+    border: none;
+
+}
+
+
+button:hover {
+    border: 2px solid;
+}
+
+.knop1 {
+    width: 650px;
+}
+
+.fotoknop {
+    align-items: left;
+    float: left;
+    text-align: left;
+}
+
+h2 {
+    font-family: 'Inter';
+    font-weight: bold;
+    float: right;
+}
+
+.tekstnaastfoto {
+    font-family: 'Inter';
+    float: right;
+    text-align: center;
+    width: 200px;
+}
+
+.knoppen1 {
+    position: absolute;
+}
+
+.knop1foto {
+    float: left;
+    border-radius: 10px 0px 0px 10px;
+}
+
+.knop1text {
+    position: relative;
+    text-align: left;
+    padding: 1px;
+    left: 1%;
+    font-family: 'Inter';
+    font-weight: bold;
+}
+
+.knop1text2 {
+    position: relative;
+    text-align: left;
+    padding: 1px;
+    left: 1%;
+    font-size: 13px;
+    width: 350px;
+}
+
+.bedraggeld {
+    float: right;
+    position: relative;
+    text-align: center;
+    bottom: 50%;
+}
+
+.vorigeknop {
+    position: relative;
+    top: 650px;
+    color: #000000;
+    font-size: 20px;
+    left: 30px;
+}
+
+.knopvorige1 {
+    position: relative;
+    width: 100px;
+    font-size: 15px;
+}
