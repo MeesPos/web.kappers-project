@@ -25,7 +25,7 @@ const Login: NextPage = () => {
 
 		if (res?.status === 401) {
 			setError("Onjuist e-mailadres en wachtwoord.");
-		} else {
+		} else if (res?.ok) {
 			router.push("/dashboard");
 		}
 	};
