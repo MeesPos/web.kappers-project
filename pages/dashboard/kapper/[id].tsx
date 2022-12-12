@@ -30,13 +30,23 @@ function Beschikbaarheid({
 		day: keyof Availability,
 		time: keyof StartEndTime
 	) {
-		setState({
-			...state,
-			[day]: {
-				...state[day],
-				[time]: event.target.value,
-			},
-		});
+		if (event.target.value !== "") {
+			setState({
+				...state,
+				[day]: {
+					...state[day],
+					[time]: event.target.value,
+				},
+			});
+		} else {
+			setState({
+				...state,
+				[day]: {
+					...state[day],
+					[time]: null,
+				},
+			});
+		}
 	}
 	function handlePauseChange(
 		event: ChangeEvent<HTMLInputElement>,
@@ -51,6 +61,7 @@ function Beschikbaarheid({
 		} else {
 			arr[0] = { [time]: event.target.value };
 		}
+
 		setState({
 			...state!,
 			[day]: {
@@ -73,8 +84,8 @@ function Beschikbaarheid({
 					pauses: [
 						...prevv[day]?.pauses!,
 						{
-							start_time: "",
-							end_time: "",
+							start_time: null,
+							end_time: null,
 						},
 					],
 				},
@@ -86,13 +97,13 @@ function Beschikbaarheid({
 		state_name: keyof Availability;
 	}
 	const days: Day[] = [
-		{ display_name: "Ma", state_name: "monday" },
-		{ display_name: "Di", state_name: "tuesday" },
-		{ display_name: "Wo", state_name: "wednesday" },
-		{ display_name: "Do", state_name: "thursday" },
-		{ display_name: "Vr", state_name: "friday" },
-		{ display_name: "Za", state_name: "saturday" },
-		{ display_name: "Zo", state_name: "sunday" },
+		{ display_name: "Ma", state_name: 0 },
+		{ display_name: "Di", state_name: 1 },
+		{ display_name: "Wo", state_name: 2 },
+		{ display_name: "Do", state_name: 3 },
+		{ display_name: "Vr", state_name: 4 },
+		{ display_name: "Za", state_name: 5 },
+		{ display_name: "Zo", state_name: 6 },
 	];
 	return (
 		<div className="">
@@ -110,9 +121,11 @@ function Beschikbaarheid({
 									label={true}
 									className="mr-5"
 									startValue={
-										state?.[day.state_name]?.start_time
+										state?.[day.state_name]?.start_time!
 									}
-									endValue={state?.[day.state_name]?.end_time}
+									endValue={
+										state?.[day.state_name]?.end_time!
+									}
 									onChangeStartTime={(event) =>
 										handleChange(
 											event,
@@ -144,9 +157,9 @@ function Beschikbaarheid({
 													name={String(idx)}
 													className="mb-1"
 													startValue={
-														items.start_time
+														items?.start_time!
 													}
-													endValue={items?.end_time}
+													endValue={items?.end_time!}
 													onChangeStartTime={(
 														event
 													) =>
@@ -193,6 +206,7 @@ const EditKapper: NextPage = () => {
 	const [hairdresserInfo, setHairdresserInfo] = useState<Hairdresser>();
 	const [availability, setAvailability] =
 		useState<Availability>(emptyAvailability);
+	console.log(availability);
 	const router = useRouter();
 	useEffect(() => {
 		if (!router.isReady) return;
