@@ -5,6 +5,8 @@ import {
 	Dispatch,
 	SetStateAction,
 	ChangeEvent,
+	FormEvent,
+	MouseEvent,
 } from "react";
 import { DashboardWrapper } from "../../../components/DashboardWrapper";
 import { KapperForm } from "../../../components/KapperForm";
@@ -15,15 +17,17 @@ import {
 	Availability,
 	StartEndTime,
 } from "../../../types/haidresser.interface";
-import { MouseEvent } from "react";
 import { emptyAvailability } from "../../../utils/emptyAvailability";
+import { useSession } from "next-auth/react";
 
 function Beschikbaarheid({
 	state,
 	setState,
+	id,
 }: {
 	state: Availability;
 	setState: Dispatch<SetStateAction<Availability>>;
+	id: number;
 }) {
 	function handleChange(
 		event: ChangeEvent<HTMLInputElement>,
@@ -100,6 +104,21 @@ function Beschikbaarheid({
 			};
 		});
 	}
+	async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+		e.preventDefault();
+		const req = await fetch(
+			process.env.NEXT_PUBLIC_API_URL +
+				`/hairdresser/${id}/default-times`,
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(state),
+			}
+		);
+		console.log(req);
+	}
 	interface Day {
 		display_name: string;
 		state_name: keyof Availability;
@@ -119,7 +138,7 @@ function Beschikbaarheid({
 				<h3 className="text-xl font-bold text-indigo-500">
 					Beschikbaarheid
 				</h3>
-				<form className="relative">
+				<form className="relative" onSubmit={(e) => handleSubmit(e)}>
 					<div className="grid grid-cols-7 mb-2">
 						{days.map((day, idx) => {
 							return (
@@ -189,7 +208,7 @@ function Beschikbaarheid({
 										}
 									)}
 									<button
-										className="border-2 border-light-gray rounded-md w-full"
+										className="border-2 border-light-gray rounded-md w-full "
 										type="button"
 										onClick={(e) =>
 											handleAddPauseClick(
@@ -204,6 +223,12 @@ function Beschikbaarheid({
 							);
 						})}
 					</div>
+					<button
+						type="submit"
+						className="text-white hover:cursor-pointer bg-indigo-500 rounded-md font-semibold w-24 mt-2 h-8"
+					>
+						Bijwerken
+					</button>
 				</form>
 			</div>
 		</div>
@@ -211,14 +236,21 @@ function Beschikbaarheid({
 }
 
 const EditKapper: NextPage = () => {
-	const [hairdresserInfo, setHairdresserInfo] = useState<Hairdresser>();
+	const [hairdresserInfo, setHairdresserInfo] = useState<
+		Hairdresser | undefined
+	>(undefined);
 	const [availability, setAvailability] =
 		useState<Availability>(emptyAvailability);
-	console.log(availability);
+
+	const [id, setId] = useState<number>(0);
+
 	const router = useRouter();
+
 	useEffect(() => {
 		if (!router.isReady) return;
 		const { id } = router.query;
+		if (!id) return;
+		setId(+id);
 		async function getHairdresser(id: string) {
 			const data = await fetch(`http://localhost:8000/hairdresser/${id}`);
 			const haidresserData = (await data.json()) as Hairdresser;
@@ -245,6 +277,7 @@ const EditKapper: NextPage = () => {
 						<Beschikbaarheid
 							state={availability!}
 							setState={setAvailability}
+							id={id!}
 						/>
 					</div>
 					<div className="m-3 bg-white rounded-lg border-2 border-light-gray">
