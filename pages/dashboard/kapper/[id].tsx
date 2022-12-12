@@ -57,9 +57,17 @@ function Beschikbaarheid({
 
 		let arr = [...state[day].pauses!];
 		if (arr.length > 1) {
-			arr[arr.length - 1] = { [time]: event.target.value };
+			if (event.target.value !== "") {
+				arr[arr.length - 1] = { [time]: event.target.value };
+			} else {
+				arr[arr.length - 1] = { [time]: null };
+			}
 		} else {
-			arr[0] = { [time]: event.target.value };
+			if (event.target.value !== "") {
+				arr[0] = { [time]: event.target.value };
+			} else {
+				arr[0] = { [time]: null };
+			}
 		}
 
 		setState({
