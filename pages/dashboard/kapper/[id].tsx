@@ -19,6 +19,7 @@ import {
 } from "../../../types/haidresser.interface";
 import { emptyAvailability } from "../../../utils/emptyAvailability";
 import { useSession } from "next-auth/react";
+import Loading from "../../../components/Loading";
 
 function Beschikbaarheid({
 	state,
@@ -235,6 +236,7 @@ function Beschikbaarheid({
 }
 
 const EditKapper: NextPage = () => {
+	const { data } = useSession();
 	const [hairdresserInfo, setHairdresserInfo] = useState<
 		Hairdresser | undefined
 	>(undefined);
@@ -245,6 +247,10 @@ const EditKapper: NextPage = () => {
 
 	const router = useRouter();
 
+	useEffect(() => {
+		if (!data) router.replace("/login");
+		return;
+	}, [data, router]);
 	useEffect(() => {
 		if (!router.isReady) return;
 		const { id } = router.query;
@@ -257,37 +263,39 @@ const EditKapper: NextPage = () => {
 		}
 		getHairdresser(id as string);
 	}, [router]);
-
-	return (
-		<DashboardWrapper title="Kapper">
-			<div className="mx-auto grid grid-cols-10 w-full">
-				<div className="m-3 bg-white rounded-lg border-2 col-span-3 border-light-gray">
-					<KapperForm
-						onSubmit={() => console.log("a")}
-						formTitle="Kapper bewerken"
-						submitName="Bewerken"
-						state={hairdresserInfo}
-						setState={setHairdresserInfo}
-						data={""}
-					/>
-				</div>
-				<div className="col-span-7">
-					<div className="m-3 bg-white rounded-lg border-2 border-light-gray">
-						<Beschikbaarheid
-							state={availability!}
-							setState={setAvailability}
-							id={id!}
+	if (data) {
+		return (
+			<DashboardWrapper title="Kapper">
+				<div className="mx-auto grid grid-cols-10 w-full">
+					<div className="m-3 bg-white rounded-lg border-2 col-span-3 border-light-gray">
+						<KapperForm
+							onSubmit={() => console.log("a")}
+							formTitle="Kapper bewerken"
+							submitName="Bewerken"
+							state={hairdresserInfo}
+							setState={setHairdresserInfo}
+							data={""}
 						/>
 					</div>
-					<div className="m-3 bg-white rounded-lg border-2 border-light-gray">
-						<div className="text-xl text-indigo-500 font-bold m-5">
-							Agenda
+					<div className="col-span-7">
+						<div className="m-3 bg-white rounded-lg border-2 border-light-gray">
+							<Beschikbaarheid
+								state={availability!}
+								setState={setAvailability}
+								id={id!}
+							/>
+						</div>
+						<div className="m-3 bg-white rounded-lg border-2 border-light-gray">
+							<div className="text-xl text-indigo-500 font-bold m-5">
+								Agenda
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		</DashboardWrapper>
-	);
+			</DashboardWrapper>
+		);
+	}
+	return <Loading />;
 };
 
 export default EditKapper;
