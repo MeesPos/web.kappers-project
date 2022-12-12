@@ -117,7 +117,6 @@ function Beschikbaarheid({
 				body: JSON.stringify(state),
 			}
 		);
-		console.log(req);
 	}
 	interface Day {
 		display_name: string;
