@@ -247,10 +247,10 @@ const EditKapper: NextPage = () => {
 
 	const router = useRouter();
 
-	useEffect(() => {
-		if (!data) router.replace("/login");
-		return;
-	}, [data, router]);
+	// useEffect(() => {
+	// 	if (!data) router.replace("/login");
+	// 	return;
+	// }, [data, router]);
 	useEffect(() => {
 		if (!router.isReady) return;
 		const { id } = router.query;
@@ -263,7 +263,7 @@ const EditKapper: NextPage = () => {
 		}
 		getHairdresser(id as string);
 	}, [router]);
-	if (data) {
+
 		return (
 			<DashboardWrapper title="Kapper">
 				<div className="mx-auto grid grid-cols-10 w-full">
@@ -294,8 +294,8 @@ const EditKapper: NextPage = () => {
 				</div>
 			</DashboardWrapper>
 		);
-	}
-	return <Loading />;
+
+
 };
 
 export default EditKapper;
