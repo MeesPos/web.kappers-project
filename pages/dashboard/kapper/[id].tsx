@@ -248,27 +248,37 @@ const EditKapper: NextPage = () => {
 
 	const router = useRouter();
 
-	
 	useEffect(() => {
-			if (status === 'unauthenticated') router.replace("/login");
-			return;
-		}, [status, router]);
-		useEffect(() => {
+		if (status === "unauthenticated") router.replace("/login");
+		return;
+	}, [status, router]);
+	useEffect(() => {
 		if (!router.isReady) return;
 		const { id } = router.query;
 		if (!id) return;
 		setId(+id);
 		async function getHairdresser(id: string) {
-			const data = await fetch(`http://localhost:8000/hairdresser/${id}`);
-			const haidresserData = (await data.json()) as Hairdresser;
-			setHairdresserInfo(haidresserData);
+			try {
+				const data = await fetch(
+					`http://localhost:8000/hairdresser/${id}`
+				);
+
+				const haidresserData = (await data.json()) as Hairdresser;
+				setHairdresserInfo(haidresserData);
+			} catch (error) {
+				console.error(error);
+			}
 		}
 		async function getHairdresserAvailability(id: string) {
-			const data = await fetch(
-				`http://localhost:8000/hairdresser/${id}/default-times`
-			);
-			const haidresserData = (await data.json()) as Availability;
-			setAvailability(haidresserData);
+			try {
+				const data = await fetch(
+					`http://localhost:8000/hairdresser/${id}/default-times`
+				);
+				const haidresserData = (await data.json()) as Availability;
+				setAvailability(haidresserData);
+			} catch (error) {
+				console.error(error);
+			}
 		}
 		getHairdresserAvailability(id as string);
 		getHairdresser(id as string);
@@ -295,11 +305,6 @@ const EditKapper: NextPage = () => {
 								setState={setAvailability}
 								id={id!}
 							/>
-							{/* </div>
-						{/* <div className="m-3 bg-white rounded-lg border-2 border-light-gray">
-							<div className="text-xl text-indigo-500 font-bold m-5">
-								Agenda
-							</div> */}
 						</div>
 					</div>
 				</div>
