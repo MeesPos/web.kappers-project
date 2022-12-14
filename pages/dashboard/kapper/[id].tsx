@@ -20,6 +20,7 @@ import {
 import { emptyAvailability } from "../../../utils/emptyAvailability";
 import { useSession } from "next-auth/react";
 import Loading from "../../../components/Loading";
+import { Session } from "inspector";
 
 function Beschikbaarheid({
 	state,
@@ -236,7 +237,7 @@ function Beschikbaarheid({
 }
 
 const EditKapper: NextPage = () => {
-	const { data } = useSession();
+	const { status } = useSession();
 	const [hairdresserInfo, setHairdresserInfo] = useState<
 		Hairdresser | undefined
 	>(undefined);
@@ -247,11 +248,12 @@ const EditKapper: NextPage = () => {
 
 	const router = useRouter();
 
+	
 	useEffect(() => {
-		if (!data) router.replace("/login");
-		return;
-	}, [data, router]);
-	useEffect(() => {
+			if (status === 'unauthenticated') router.replace("/login");
+			return;
+		}, [status, router]);
+		useEffect(() => {
 		if (!router.isReady) return;
 		const { id } = router.query;
 		if (!id) return;
@@ -272,7 +274,7 @@ const EditKapper: NextPage = () => {
 		getHairdresser(id as string);
 	}, [router]);
 
-	if (data) {
+	if (status === "authenticated") {
 		return (
 			<DashboardWrapper title="Kapper">
 				<div className="mx-auto grid grid-cols-10 w-full">
