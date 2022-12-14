@@ -247,10 +247,10 @@ const EditKapper: NextPage = () => {
 
 	const router = useRouter();
 
-	// useEffect(() => {
-	// 	if (!data) router.replace("/login");
-	// 	return;
-	// }, [data, router]);
+	useEffect(() => {
+		if (!data) router.replace("/login");
+		return;
+	}, [data, router]);
 	useEffect(() => {
 		if (!router.isReady) return;
 		const { id } = router.query;
@@ -261,9 +261,18 @@ const EditKapper: NextPage = () => {
 			const haidresserData = (await data.json()) as Hairdresser;
 			setHairdresserInfo(haidresserData);
 		}
+		async function getHairdresserAvailability(id: string) {
+			const data = await fetch(
+				`http://localhost:8000/hairdresser/${id}/default-times`
+			);
+			const haidresserData = (await data.json()) as Availability;
+			setAvailability(haidresserData);
+		}
+		getHairdresserAvailability(id as string);
 		getHairdresser(id as string);
 	}, [router]);
 
+	if (data) {
 		return (
 			<DashboardWrapper title="Kapper">
 				<div className="mx-auto grid grid-cols-10 w-full">
@@ -284,18 +293,18 @@ const EditKapper: NextPage = () => {
 								setState={setAvailability}
 								id={id!}
 							/>
-						</div>
-						<div className="m-3 bg-white rounded-lg border-2 border-light-gray">
+							{/* </div>
+						{/* <div className="m-3 bg-white rounded-lg border-2 border-light-gray">
 							<div className="text-xl text-indigo-500 font-bold m-5">
 								Agenda
-							</div>
+							</div> */}
 						</div>
 					</div>
 				</div>
 			</DashboardWrapper>
 		);
-
-
+	}
+	return <Loading />;
 };
 
 export default EditKapper;
