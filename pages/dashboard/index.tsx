@@ -6,14 +6,14 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 import Loading from "../../components/Loading";
 const Dashboard: NextPage = () => {
-	const { data } = useSession();
+	const { status } = useSession();
 
 	const router = useRouter();
 	useEffect(() => {
-		if (!data) router.replace("/login");
+		if (status === 'unauthenticated') router.replace("/login");
 		return;
-	}, [data, router]);
-	if (data) {
+	}, [status, router]);
+	if (status === 'authenticated') {
 		return (
 			<>
 				<DashboardWrapper title="Dashboard">
@@ -25,7 +25,7 @@ const Dashboard: NextPage = () => {
 						</div>
 
 						<div className="bg-white rounded-3xl m-1">
-							<h1 className=" m-4 text-sm text-gray-500 inline-flex">
+				<h1 className=" m-4 text-sm text-gray-500 inline-flex">
 								<Search />
 								Zoeken
 							</h1>
@@ -35,11 +35,7 @@ const Dashboard: NextPage = () => {
 								Financien
 							</h2>
 						</div>
-						<div className="bg-white rounded-lg m-1">
-							<h2 className=" m-3 text-xl font-bold text-indigo-600">
-								Voorraad
-							</h2>
-						</div>
+					
 					</div>
 				</DashboardWrapper>
 			</>

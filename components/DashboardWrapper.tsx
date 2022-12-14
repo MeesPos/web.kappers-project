@@ -7,7 +7,7 @@ export function DashboardWrapper({
 }: {
     children: React.ReactNode;
     title: string;
-    button: any;
+    button?: any;
 }) {
     return (
         <>
@@ -29,9 +29,7 @@ export function DashboardWrapper({
                 <main>
                     <div className="min-h-full">
                         <div className="mx-auto max-w-7xl py-6 sm:px-6">
-                            {/* Content */}
                             {children}
-                            {/* End content */}
                         </div>
                     </div>
                 </main>
