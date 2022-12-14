@@ -1,37 +1,37 @@
 export const emptyAvailability = {
-	monday: {
-		start_time: "",
-		end_time: "",
+	0: {
+		start_time: null,
+		end_time: null,
 		pauses: [],
 	},
-	tuesday: {
-		start_time: "",
-		end_time: "",
+	1: {
+		start_time: null,
+		end_time: null,
 		pauses: [],
 	},
-	wednesday: {
-		start_time: "",
-		end_time: "",
+	2: {
+		start_time: null,
+		end_time: null,
 		pauses: [],
 	},
-	thursday: {
-		start_time: "",
-		end_time: "",
+	3: {
+		start_time: null,
+		end_time: null,
 		pauses: [],
 	},
-	friday: {
-		start_time: "",
-		end_time: "",
+	4: {
+		start_time: null,
+		end_time: null,
 		pauses: [],
 	},
-	saturday: {
-		start_time: "",
-		end_time: "",
+	5: {
+		start_time: null,
+		end_time: null,
 		pauses: [],
 	},
-	sunday: {
-		start_time: "",
-		end_time: "",
+	6: {
+		start_time: null,
+		end_time: null,
 		pauses: [],
 	},
 };
