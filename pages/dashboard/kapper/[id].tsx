@@ -8,6 +8,8 @@ import {
 	FormEvent,
 	MouseEvent,
 } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { DashboardWrapper } from "../../../components/DashboardWrapper";
 import { KapperForm } from "../../../components/KapperForm";
 import { useRouter } from "next/router";
@@ -119,6 +121,7 @@ function Beschikbaarheid({
 				body: JSON.stringify(state),
 			}
 		);
+		toast("🥳 Pauzes succesfol toegevoegd!");
 	}
 	interface Day {
 		display_name: string;
@@ -305,6 +308,7 @@ const EditKapper: NextPage = () => {
 								setState={setAvailability}
 								id={id!}
 							/>
+							<ToastContainer />
 						</div>
 					</div>
 				</div>
