@@ -22,7 +22,6 @@ import {
 import { emptyAvailability } from "../../../utils/emptyAvailability";
 import { useSession } from "next-auth/react";
 import Loading from "../../../components/Loading";
-import { Session } from "inspector";
 
 function Beschikbaarheid({
 	state,
@@ -64,15 +63,19 @@ function Beschikbaarheid({
 		event.preventDefault();
 
 		let arr = [...state[day].pauses!];
+
 		if (arr.length > 1) {
 			if (event.target.value !== "") {
-				arr[arr.length - 1] = { [time]: event.target.value };
+				//@ts-ignore
+				arr[arr.length - 1][time] = event.target.value;
 			} else {
 				arr[arr.length - 1] = { [time]: null };
 			}
 		} else {
 			if (event.target.value !== "") {
-				arr[0] = { [time]: event.target.value };
+				//@ts-ignore
+				arr[0][time] = event.target.value;
+				console.log(arr);
 			} else {
 				arr[0] = { [time]: null };
 			}
@@ -121,7 +124,7 @@ function Beschikbaarheid({
 				body: JSON.stringify(state),
 			}
 		);
-		toast("🥳 Pauzes succesfol toegevoegd!");
+		toast("🥳 Bijgewerkt!");
 	}
 	interface Day {
 		display_name: string;
