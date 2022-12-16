@@ -75,7 +75,6 @@ function Beschikbaarheid({
 			if (event.target.value !== "") {
 				//@ts-ignore
 				arr[0][time] = event.target.value;
-				console.log(arr);
 			} else {
 				arr[0] = { [time]: null };
 			}
