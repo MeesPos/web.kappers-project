@@ -14,7 +14,7 @@ export function KapperForm({
 	state: Hairdresser | undefined;
 	setState: Dispatch<SetStateAction<Hairdresser | undefined>>;
 	formTitle: string;
-	submitName: string;
+	submitName?: string;
 }) {
 	const [selectedFile, setSelectedFile] = useState<File>();
 	const [notSamePassword, setNotSamePassword] = useState<boolean>();
@@ -143,12 +143,14 @@ export function KapperForm({
 						Wachtwoorden komen niet overeen
 					</span>
 				) : null}
-				<button
-					type="submit"
-					className="text-white hover:cursor-pointer bg-indigo-500 rounded-md font-semibold w-full h-8 mt-8"
-				>
-					{submitName}
-				</button>
+				{submitName ? (
+					<button
+						type="submit"
+						className="text-white hover:cursor-pointer bg-indigo-500 rounded-md font-semibold w-full h-8 mt-8"
+					>
+						{submitName}
+					</button>
+				) : null}
 			</form>
 		</>
 	);
