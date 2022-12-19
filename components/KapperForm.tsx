@@ -9,14 +9,12 @@ export function KapperForm({
 	submitName,
 	state,
 	setState,
-	data,
 }: {
 	onSubmit: any;
 	state: Hairdresser | undefined;
 	setState: Dispatch<SetStateAction<Hairdresser | undefined>>;
 	formTitle: string;
 	submitName: string;
-	data: any;
 }) {
 	const [selectedFile, setSelectedFile] = useState<File>();
 	const [notSamePassword, setNotSamePassword] = useState<boolean>();
@@ -47,7 +45,7 @@ export function KapperForm({
 
 	return (
 		<>
-			<form onSubmit={onSubmit} className="m-5">
+			<form onSubmit={onSubmit} className="m-5 p-4">
 				<h3 className="text-xl font-bold text-indigo-500">
 					{formTitle}
 				</h3>

@@ -300,7 +300,6 @@ const EditKapper: NextPage = () => {
 							submitName="Bewerken"
 							state={hairdresserInfo}
 							setState={setHairdresserInfo}
-							data={""}
 						/>
 					</div>
 					<div className="col-span-7">
