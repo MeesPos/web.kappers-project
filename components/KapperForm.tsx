@@ -30,18 +30,29 @@ export function KapperForm({
 
 		const objectUrl = URL.createObjectURL(selectedFile);
 		setPreview(objectUrl);
-		console.log(selectedFile);
 
 		return () => URL.revokeObjectURL(objectUrl);
 	}, [selectedFile]);
 
-	const onSelectFile = (e: any) => {
+	const onSelectFile = async (e: any) => {
 		if (!e.target.files || e.target.files.length === 0) {
 			setSelectedFile(undefined);
 			return;
 		}
+		const toBase64 = (file: File) =>
+			new Promise((resolve, reject) => {
+				const reader = new FileReader();
+				reader.readAsDataURL(file);
+				reader.onload = () => resolve(reader.result);
+				reader.onerror = (error) => reject(error);
+			});
 
 		setSelectedFile(e.target.files[0]);
+		const base64Image = await toBase64(e.target.files[0]);
+		setState({
+			...state!,
+			image: base64Image,
+		});
 	};
 
 	return (
@@ -65,7 +76,7 @@ export function KapperForm({
 										src={preview!}
 										alt="profilepic preview"
 										fill
-										className="rounded-full w-12 h-12" // just an example
+										className="rounded-full w-12 h-12"
 									/>
 								) : (
 									<svg

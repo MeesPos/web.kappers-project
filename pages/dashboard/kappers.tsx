@@ -8,6 +8,7 @@ import React from "react";
 import { KapperForm } from "../../components/KapperForm";
 import { Hairdresser } from "../../types/haidresser.interface";
 import { toast, ToastContainer } from "react-toastify";
+import Image from "next/image";
 
 function AddHairdresserModal({
 	setState,
@@ -165,14 +166,24 @@ export default function Kappers() {
 												<tr key={hairdresser.email}>
 													<td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6">
 														<div className="flex items-center">
-															<div className="h-10 w-10 flex-shrink-0">
-																{/* <img
-																	className="h-10 w-10 rounded-full"
-																	src={
-																		person.image
-																	}
-																	alt=""
-																/> */}
+															<div className="relative h-10 w-10 flex-shrink-0">
+																{
+																	<Image
+																		src={
+																			process
+																				.env
+																				.NEXT_PUBLIC_API_URL +
+																			"/image/" +
+																			hairdresser.image
+																		}
+																		alt={
+																			"Profielfoto van " +
+																			hairdresser.name
+																		}
+																		fill
+																		className="rounded-full w-12 h-12"
+																	/>
+																}
 															</div>
 															<div className="ml-4">
 																<div className="font-medium text-gray-900">
