@@ -54,7 +54,6 @@ export function KapperForm({
 			image: base64Image,
 		});
 	};
-
 	return (
 		<>
 			<form onSubmit={onSubmit} className="m-5 p-4">
@@ -71,9 +70,13 @@ export function KapperForm({
 					<div className="mt-1 sm:col-span-2 sm:mt-0">
 						<div className="flex items-center">
 							<span className="relative h-12 w-12 overflow-hidden rounded-full bg-gray-100">
-								{selectedFile ? (
+								{state?.image ? (
 									<Image
-										src={preview!}
+										src={
+											process.env.NEXT_PUBLIC_API_URL +
+											"/image/" +
+											state?.image
+										}
 										alt="profilepic preview"
 										fill
 										className="rounded-full w-12 h-12"
