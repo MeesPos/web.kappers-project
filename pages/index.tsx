@@ -1,10 +1,5 @@
-import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
 import React, {useState} from "react";
 import Reservering2 from "../components/Reservering2";
-
-
 
 function App() {
 	const[popup,setPop]=useState(false);
