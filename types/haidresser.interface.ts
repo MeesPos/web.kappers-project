@@ -21,4 +21,6 @@ export interface Hairdresser {
 	email: string;
 	password?: string;
 	availability: Availability;
+	id?: number;
+	image?: any;
 }
