@@ -3,6 +3,8 @@ import { Dispatch, useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Loading from "../../components/Loading";
+import "react-toastify/dist/ReactToastify.css";
+
 const people = [
 	{
 		name: "Jane Cooper",
@@ -27,6 +29,7 @@ const people = [
 import React from "react";
 import { KapperForm } from "../../components/KapperForm";
 import { Hairdresser } from "../../types/haidresser.interface";
+import { toast, ToastContainer } from "react-toastify";
 
 function AddHairdresserModal({
 	setState,
@@ -34,17 +37,52 @@ function AddHairdresserModal({
 	setState: Dispatch<React.SetStateAction<boolean>>;
 }) {
 	const [hairdresser, setHairdreser] = useState<Hairdresser>();
+	function handleKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
+		if (e.key === "Escape") {
+			setState(false);
+		}
+		if (e.key === "Enter") {
+			handleSubmit();
+		}
+	}
+	async function handleSubmit() {
+		const res = await fetch(
+			process.env.NEXT_PUBLIC_API_URL + "/new/hairdresser",
+			{
+				method: "POST",
+				body: JSON.stringify(hairdresser),
+				headers: {
+					"Content-Type": "application/json",
+				},
+			}
+		);
+		if (res.status === 200) {
+			toast("Kapper toegevoegd!");
+		}
+		if (res.status === 400) {
+			toast.error("Alle velden moeten ingevuld zijn");
+			return;
+		}
+		if (res.status === 500) {
+			toast.error("Intere server error");
+			return;
+		}
+		setState(false);
+	}
+
 	return (
 		<>
 			<>
-				<div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+				<div
+					className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+					onKeyDown={(e) => handleKeyDown(e)}
+				>
 					<div className="relative my-6 mx-auto max-w-3xl">
 						{/*content*/}
 						<div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full xl:w-[35rem]	 bg-white outline-none focus:outline-none">
 							{/*body*/}
 
 							<KapperForm
-								onSubmit={console.log("aahah")}
 								formTitle={"Voeg een kapper toe"}
 								state={hairdresser}
 								setState={setHairdreser}
@@ -62,7 +100,7 @@ function AddHairdresserModal({
 								<button
 									className="bg-indigo-600 text-white  font-bold uppercase text-sm px-6 py-3  ring-offset-1  hover:ring-1 rounded hover:ring-indigo-500 outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
 									type="submit"
-									onClick={() => setState(false)}
+									onClick={handleSubmit}
 								>
 									Toevoegen
 								</button>
@@ -102,6 +140,8 @@ export default function Kappers() {
 					</>
 				}
 			>
+				<ToastContainer />
+
 				<div className="px-4 sm:px-6 lg:px-8">
 					<div className="sm:flex sm:items-center mt-3"></div>
 					<div className="mt-3 flex flex-col">

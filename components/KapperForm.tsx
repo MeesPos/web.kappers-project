@@ -10,7 +10,7 @@ export function KapperForm({
 	state,
 	setState,
 }: {
-	onSubmit: any;
+	onSubmit?: any;
 	state: Hairdresser | undefined;
 	setState: Dispatch<SetStateAction<Hairdresser | undefined>>;
 	formTitle: string;
