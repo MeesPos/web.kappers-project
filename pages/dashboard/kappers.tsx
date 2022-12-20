@@ -4,28 +4,6 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Loading from "../../components/Loading";
 import "react-toastify/dist/ReactToastify.css";
-
-const people = [
-	{
-		name: "Jane Cooper",
-		email: "Jane.Cooper@kappers.com",
-		image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-		link: "/dashboard/kapper/1",
-	},
-	{
-		name: "Cody Fisher",
-		email: "cody.fisch@kappers.com",
-		image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-		link: "/dashboard/kapper/2",
-	},
-	{
-		name: "Lindsay Walton",
-		email: "lindsay.walton@kappers.com",
-		image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-		link: "/dashboard/kapper/3",
-	},
-];
-
 import React from "react";
 import { KapperForm } from "../../components/KapperForm";
 import { Hairdresser } from "../../types/haidresser.interface";
@@ -115,12 +93,21 @@ function AddHairdresserModal({
 }
 export default function Kappers() {
 	const [showModal, setShowModal] = useState<boolean>(false);
-
+	const [haidressers, setHairdresers] = useState<Hairdresser[]>();
 	const { status } = useSession();
 
 	const router = useRouter();
 	useEffect(() => {
 		if (status === "unauthenticated") router.replace("/login");
+		async function fetchHaidressers() {
+			const res = await fetch(
+				process.env.NEXT_PUBLIC_API_URL + "/hairdressers"
+			);
+
+			setHairdresers(await res.json());
+		}
+		console.log(haidressers);
+		fetchHaidressers();
 		return;
 	}, [status, router]);
 	if (status === "authenticated") {
@@ -174,28 +161,28 @@ export default function Kappers() {
 											</tr>
 										</thead>
 										<tbody className="divide-y divide-gray-200 bg-white">
-											{people.map((person) => (
-												<tr key={person.email}>
+											{haidressers?.map((hairdresser) => (
+												<tr key={hairdresser.email}>
 													<td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6">
 														<div className="flex items-center">
 															<div className="h-10 w-10 flex-shrink-0">
-																<img
+																{/* <img
 																	className="h-10 w-10 rounded-full"
 																	src={
 																		person.image
 																	}
 																	alt=""
-																/>
+																/> */}
 															</div>
 															<div className="ml-4">
 																<div className="font-medium text-gray-900">
 																	{
-																		person.name
+																		hairdresser.name
 																	}
 																</div>
 																<div className="text-gray-500">
 																	{
-																		person.email
+																		hairdresser.email
 																	}
 																</div>
 															</div>
@@ -203,12 +190,18 @@ export default function Kappers() {
 													</td>
 													<td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
 														<a
-															href={person.link}
+															href={
+																"/dashboard/kapper/" +
+																hairdresser?.id
+															}
 															className="text-indigo-600 hover:text-indigo-900"
 														>
 															Bewerken
 															<span className="sr-only">
-																, {person.name}
+																,{" "}
+																{
+																	hairdresser.name
+																}
 															</span>
 														</a>
 													</td>

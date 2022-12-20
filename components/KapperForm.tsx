@@ -30,6 +30,7 @@ export function KapperForm({
 
 		const objectUrl = URL.createObjectURL(selectedFile);
 		setPreview(objectUrl);
+		console.log(selectedFile);
 
 		return () => URL.revokeObjectURL(objectUrl);
 	}, [selectedFile]);
@@ -58,14 +59,13 @@ export function KapperForm({
 					</label>
 					<div className="mt-1 sm:col-span-2 sm:mt-0">
 						<div className="flex items-center">
-							<span className="h-12 w-12 overflow-hidden rounded-full bg-gray-100">
+							<span className="relative h-12 w-12 overflow-hidden rounded-full bg-gray-100">
 								{selectedFile ? (
 									<Image
 										src={preview!}
 										alt="profilepic preview"
-										layout="responsive"
-										width={24}
-										height={24}
+										fill
+										className="rounded-full w-12 h-12" // just an example
 									/>
 								) : (
 									<svg
