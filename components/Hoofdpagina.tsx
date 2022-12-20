@@ -27,7 +27,7 @@ function Hoofdpagina(){
       <img className="relative top-[30px] ml-[40%]" src="fotos/Group2.png" width="80px" />
       <h1 className="relative top-[125px] text-indigo-500 text-2xl font-bold p-2">Selecteer uw kapper</h1>
       <h3 className="relative top-[125px] text-indigo-500 text-lg p-2">gekozen behandeling: {item1}</h3>
-      <h4 className="relative top-[125px] text-indigo-500 font-normal text-gray-500">
+      <h4 className="relative top-[125px] font-normal text-gray-500">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua.
       </h4>
