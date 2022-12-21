@@ -23,7 +23,7 @@ function SelectTreatment() {
         />
         <title>Reservering maken</title>
         <div className="bg-auto bg-slate-400">
-          <div className="w-[1200px] h-[800px] rounded-3xl m-auto p-5 z-50 bg-white absolute top-0 left-1/4">
+          <div className="w-[1200px] h-[800px] rounded-3xl m-auto p-5 z-50 bg-white absolute top-0 bottom-0 left-0 right-0">
             <div className="float-left p-2 bg-white text-center w-[440px] h-[700px] items-center">
               <img
                 className="relative top-[30px] ml-[40%]"
