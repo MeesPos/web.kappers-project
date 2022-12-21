@@ -33,7 +33,7 @@ function SelectTreatment() {
               <h1 className="relative top-[125px] text-indigo-500 text-2xl font-bold p-2">
                 Selecteer behandeling
               </h1>
-              <h4 className="relative top-[125px] text-indigo-500 font-normal text-gray-500">
+              <h4 className="relative top-[125px] font-normal text-gray-500">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                 enim ad minim veniam, quis nostrud exercitation ullamco laboris
