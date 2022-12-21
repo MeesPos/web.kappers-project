@@ -10,7 +10,7 @@ const handleClick2 = (kapper: string) => {
   location.href = "/agendapagina";
 };
 
-function Hoofdpagina({ hairdressers }: { hairdressers: Hairdresser[] }) {
+function SelectHairdresser({ hairdressers }: { hairdressers: Hairdresser[] }) {
   const [item1, setItem] = useState("");
   useEffect(() => {
     const item1 = window.localStorage.getItem("behandeling");
@@ -88,4 +88,4 @@ function Hoofdpagina({ hairdressers }: { hairdressers: Hairdresser[] }) {
   );
 }
 
-export default Hoofdpagina;
+export default SelectHairdresser;

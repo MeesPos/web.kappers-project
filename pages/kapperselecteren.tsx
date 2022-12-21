@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import type { NextPage } from "next";
-import Hoofdpagina from "../components/Hoofdpagina";
+import SelectHairdresser from "../components/SelectHairdresser";
 
 const KapperSelecteren: NextPage = () => {
   const [hairdressers, setHairdressers] = useState();
@@ -17,7 +17,7 @@ const KapperSelecteren: NextPage = () => {
 
   return (
     <>
-      <Hoofdpagina hairdressers={hairdressers!} />
+      <SelectHairdresser hairdressers={hairdressers!} />
     </>
   );
 };
