@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import Reservering2 from "../components/Reservering2";
+import SelectTreatment from "../components/SelectTreatment";
 
 function App() {
 	const[popup,setPop]=useState(false);
@@ -18,22 +18,9 @@ function App() {
 					<button className="bg-teal-200 h-10 top-[600px] left-[300px] absolute w-[250px]" onClick={handleClickOpen}>Reservering maken</button>
 		</div>
 		<div>
-			{/* {popup?
-			<div className="">
-				<div className="">
-				<div className="flex justify-between absolute top-0">
-						<h1></h1>
-						<button onClick={closePopup}>Sluiten</button>
-					</div>
-					<Reservering2></Reservering2>
-					<div>
-					</div>
-				</div>
-			</div>:""} */}
 			{popup && 
-				<Reservering2></Reservering2>
+				<SelectTreatment />
 			}
-			
 		</div>
 	</div>
 )}

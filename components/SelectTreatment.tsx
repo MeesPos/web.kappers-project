@@ -13,7 +13,7 @@ const handleClick2 = (behandeling: string) => {
   location.href = "/kapperselecteren";
 };
 
-function Reservering2() {
+function SelectTreatment() {
   return (
     <>
       <div>
@@ -155,4 +155,4 @@ function Reservering2() {
   );
 }
 
-export default Reservering2;
+export default SelectTreatment;
