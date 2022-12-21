@@ -1,14 +1,12 @@
 import React from "react";
-import Hoofdpagina from "./SelectHairdresser";
 
 const handleClick = (behandeling: string) => {
-  localStorage.setItem("behandeling", behandeling);
-
-  location.href = "/kapperselecteren";
-};
-
-const handleClick2 = (behandeling: string) => {
-  localStorage.setItem("behandeling", behandeling);
+  localStorage.setItem(
+    "appointment",
+    JSON.stringify({
+      treatment: behandeling,
+    })
+  );
 
   location.href = "/kapperselecteren";
 };
@@ -17,10 +15,6 @@ function SelectTreatment() {
   return (
     <>
       <div>
-        <link
-          href="https://fonts.googleapis.com/css?family=Inter"
-          rel="stylesheet"
-        />
         <title>Reservering maken</title>
         <div className="bg-auto bg-slate-400">
           <div className="w-[1200px] h-[800px] rounded-3xl m-auto p-5 z-50 bg-white absolute top-0 bottom-0 left-0 right-0">
@@ -48,12 +42,9 @@ function SelectTreatment() {
               </h4>
             </div>
             <div className="p-5 width-[600px] height-[780px] ml-[40%] ">
-              <h1 className="text-indigo-500 font-bold text-2xl font-bold">
+              <h1 className="text-indigo-500 text-2xl font-bold">
                 Selecteer behandeling
-                <br />
-                <br />
-                <br />
-                <div className="absolute space-y-8">
+                <div className="absolute space-y-8 mt-12">
                   <div className="width-[650px] height-[150px]">
                     <button
                       id="eerstebehandeling"
