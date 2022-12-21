@@ -1,13 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { Hairdresser } from "../types/haidresser.interface";
+import { Appointment } from "../types/appointment.interface";
 
 const handleClick = () => {
   location.href = "/";
 };
 
 const handleClick2 = (kapper: string) => {
-  localStorage.setItem("kapper", kapper);
-  location.href = "/agendapagina";
+  const item: Appointment = JSON.parse(localStorage.getItem("appointment")!);
+
+  if (item !== null) {
+    item.hairdresser = kapper;
+
+    localStorage.setItem("appointment", JSON.stringify(item));
+
+    location.href = "/agendapagina";
+  } 
 };
 
 function SelectHairdresser({ hairdressers }: { hairdressers: Hairdresser[] }) {
@@ -58,7 +66,7 @@ function SelectHairdresser({ hairdressers }: { hairdressers: Hairdresser[] }) {
                   return (
                     <button
                       key={index}
-                      onClick={() => handleClick2("jane")}
+                      onClick={() => handleClick2(hairdresser.id)}
                       className="mt-[50px] w-full h-full text-md text-black border-2 border-[#F9F9F9] rounded-xl"
                     >
                       <img
