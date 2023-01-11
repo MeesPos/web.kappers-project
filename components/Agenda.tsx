@@ -17,7 +17,6 @@ function Agenda({
   appointment: Appointment;
 }) {
   const handleClick2 = (date: string) => {
-    console.log("test");
     appointment.date = date;
 
     localStorage.setItem("appointment", JSON.stringify(appointment));
