@@ -1,4 +1,6 @@
 export interface Appointment {
     treatment: String,
-    hairdresser: String
+    hairdresser: String,
+    date: String,
+    time: String
 }
