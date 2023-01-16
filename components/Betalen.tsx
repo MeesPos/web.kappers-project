@@ -1,7 +1,3 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
-import { toast } from "react-toastify";
-
 const handleClick = () => {
 	location.href = "/betalingsoverzicht";
 };
