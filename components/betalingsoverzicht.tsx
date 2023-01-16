@@ -63,7 +63,7 @@ function Betalingsoverzicht() {
             <div className="height-[200px] width-[200px]">
               <div>
                 <p className="text-indigo-500 font-bold text-2xl relative top-[50px]">
-                  reservering
+                  Reservering
                 </p>
                 <div className="relative top-[75px]">
                   <p className="p-2 font-bold">
@@ -78,15 +78,36 @@ function Betalingsoverzicht() {
                       {appointment?.hairdresser.name}
                     </span>
                   </p>
-                  <p className="p-2 font-bold">Datum:</p>
+                  <p className="p-2 font-bold">
+                    Datum:{" "}
+                    <span className="font-normal">
+                      {appointment?.date} - {appointment?.time.start_time} -{" "}
+                      {appointment?.time.end_time}
+                    </span>
+                  </p>
                   <br></br>
                   <h1 className="text-indigo-500 font-bold text-2xl">
-                    persoonlijke gegevens
+                    Persoonlijke gegevens
                   </h1>
                   <div className="relative top-[25px]">
-                    <p className="p-2 font-bold">Naam:</p>
-                    <p className="p-2 font-bold">E-mailadress:</p>
-                    <p className="p-2 font-bold">telefoonnummer:</p>
+                    <p className="p-2 font-bold">
+                      Naam:{" "}
+                      <span className="font-normal">
+                        {appointment?.personalData.name}
+                      </span>
+                    </p>
+                    <p className="p-2 font-bold">
+                      E-mailadres:{" "}
+                      <span className="font-normal">
+                        {appointment?.personalData.email}
+                      </span>
+                    </p>
+                    <p className="p-2 font-bold">
+                      Telefoonnummer:{" "}
+                      <span className="font-normal">
+                        {appointment?.personalData.phone_number}
+                      </span>
+                    </p>
                   </div>
                 </div>
               </div>
