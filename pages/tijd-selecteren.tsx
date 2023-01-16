@@ -15,7 +15,7 @@ const TijdSelecteren: NextPage = () => {
         process.env.NEXT_PUBLIC_API_URL +
           "/hairdresser/" +
           // @ts-ignore
-          appointment.hairdresser +
+          appointment.hairdresser.id +
           "/availability/" +
           // @ts-ignore
           appointment.date

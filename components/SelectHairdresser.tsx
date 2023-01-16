@@ -6,16 +6,19 @@ const handleClick = () => {
   location.href = "/";
 };
 
-const handleClick2 = (kapper: string) => {
+const handleClick2 = (hairdresser: Hairdresser) => {
   const item: Appointment = JSON.parse(localStorage.getItem("appointment")!);
 
   if (item !== null) {
-    item.hairdresser = kapper;
+    item.hairdresser = {
+      id: Number(hairdresser.id),
+      name: hairdresser.name.toString(),
+    };
 
     localStorage.setItem("appointment", JSON.stringify(item));
 
     location.href = "/agendapagina";
-  } 
+  }
 };
 
 function SelectHairdresser({ hairdressers }: { hairdressers: Hairdresser[] }) {
@@ -66,7 +69,7 @@ function SelectHairdresser({ hairdressers }: { hairdressers: Hairdresser[] }) {
                   return (
                     <button
                       key={index}
-                      onClick={() => handleClick2(hairdresser.id)}
+                      onClick={() => handleClick2(hairdresser)}
                       className="mt-[50px] w-full h-full text-md text-black border-2 border-[#F9F9F9] rounded-xl"
                     >
                       <img

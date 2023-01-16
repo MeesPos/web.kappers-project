@@ -15,7 +15,7 @@ const AgendaPagina: NextPage = () => {
       const res = await fetch(
         process.env.NEXT_PUBLIC_API_URL +
           "/hairdresser/" +
-          appointment.hairdresser +
+          appointment.hairdresser.id +
           "/availability"
       );
 
