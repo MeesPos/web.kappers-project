@@ -8,5 +8,11 @@ export interface Appointment {
     time: {
         start_time: String,
         end_time: String
+    },
+    personalData: {
+        name: String;
+        email: String;
+        phone_number?: String;
+        note?: String;
     }
 }

@@ -19,7 +19,7 @@ function SelectTime({
 
     localStorage.setItem("appointment", JSON.stringify(appointment));
 
-    window.location.href = "/betalingsoverzicht";
+    window.location.href = "/gegevensinvullen";
   };
 
   return (
