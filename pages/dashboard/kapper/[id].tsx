@@ -289,18 +289,29 @@ const EditKapper: NextPage = () => {
 		getHairdresser(id as string);
 	}, [router]);
 
+	async function handleUpdate() {
+		const res = await fetch(
+			process.env.NEXT_PUBLIC_API_URL + "/update/hairdresser",
+			{
+				method: "POST",
+				body: JSON.stringify(hairdresserInfo),
+				headers: {
+					"Content-Type": "application/json",
+				},
+			}
+		);
+	}
 	if (status === "authenticated") {
 		return (
 			<DashboardWrapper title="Kapper">
 				<div className="mx-auto grid grid-cols-10 w-full">
 					<div className="m-3 bg-white rounded-lg border-2 col-span-3 border-light-gray">
 						<KapperForm
-							onSubmit={() => console.log("a")}
+							onSubmit={() => handleUpdate()}
 							formTitle="Kapper bewerken"
 							submitName="Bewerken"
 							state={hairdresserInfo}
 							setState={setHairdresserInfo}
-							data={""}
 						/>
 					</div>
 					<div className="col-span-7">

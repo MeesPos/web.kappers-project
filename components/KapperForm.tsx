@@ -9,14 +9,12 @@ export function KapperForm({
 	submitName,
 	state,
 	setState,
-	data,
 }: {
-	onSubmit: any;
+	onSubmit?: any;
 	state: Hairdresser | undefined;
 	setState: Dispatch<SetStateAction<Hairdresser | undefined>>;
 	formTitle: string;
-	submitName: string;
-	data: any;
+	submitName?: string;
 }) {
 	const [selectedFile, setSelectedFile] = useState<File>();
 	const [notSamePassword, setNotSamePassword] = useState<boolean>();
@@ -36,18 +34,29 @@ export function KapperForm({
 		return () => URL.revokeObjectURL(objectUrl);
 	}, [selectedFile]);
 
-	const onSelectFile = (e: any) => {
+	const onSelectFile = async (e: any) => {
 		if (!e.target.files || e.target.files.length === 0) {
 			setSelectedFile(undefined);
 			return;
 		}
+		const toBase64 = (file: File) =>
+			new Promise((resolve, reject) => {
+				const reader = new FileReader();
+				reader.readAsDataURL(file);
+				reader.onload = () => resolve(reader.result);
+				reader.onerror = (error) => reject(error);
+			});
 
 		setSelectedFile(e.target.files[0]);
+		const base64Image = await toBase64(e.target.files[0]);
+		setState({
+			...state!,
+			image: base64Image,
+		});
 	};
-
 	return (
 		<>
-			<form onSubmit={onSubmit} className="m-5">
+			<form onSubmit={onSubmit} className="m-5 p-4">
 				<h3 className="text-xl font-bold text-indigo-500">
 					{formTitle}
 				</h3>
@@ -60,14 +69,17 @@ export function KapperForm({
 					</label>
 					<div className="mt-1 sm:col-span-2 sm:mt-0">
 						<div className="flex items-center">
-							<span className="h-12 w-12 overflow-hidden rounded-full bg-gray-100">
-								{selectedFile ? (
+							<span className="relative h-12 w-12 overflow-hidden rounded-full bg-gray-100">
+								{state?.image ? (
 									<Image
-										src={preview!}
+										src={
+											process.env.NEXT_PUBLIC_API_URL +
+											"/image/" +
+											state?.image
+										}
 										alt="profilepic preview"
-										layout="responsive"
-										width={24}
-										height={24}
+										fill
+										className="rounded-full w-12 h-12"
 									/>
 								) : (
 									<svg
@@ -145,12 +157,14 @@ export function KapperForm({
 						Wachtwoorden komen niet overeen
 					</span>
 				) : null}
-				<button
-					type="submit"
-					className="text-white hover:cursor-pointer bg-indigo-500 rounded-md font-semibold w-full h-8 mt-8"
-				>
-					{submitName}
-				</button>
+				{submitName ? (
+					<button
+						type="submit"
+						className="text-white hover:cursor-pointer bg-indigo-500 rounded-md font-semibold w-full h-8 mt-8"
+					>
+						{submitName}
+					</button>
+				) : null}
 			</form>
 		</>
 	);
