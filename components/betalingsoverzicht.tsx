@@ -18,8 +18,6 @@ function Betalingsoverzicht() {
     setAppointment(appointment);
   }, []);
 
-  console.log(appointment?.treatment);
-
   return (
     <>
       <link
