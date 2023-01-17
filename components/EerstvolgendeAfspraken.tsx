@@ -1,21 +1,7 @@
 import React from "react";
-interface Afspraak {
-	id: number;
-	treatment: any;
-	treatment_id: number;
-	hairdresser: any;
-	hairdresser_id: number;
-	personal_data: any;
-	references: any;
-	personal_data_id: number;
-	payment: any;
-	payment_id: number;
-	extra_services: any;
-	date: string;
-	start_time: string;
-	end_time: string;
-}
-function EerstvolgendeAfspraken({ afspraken }: { afspraken: Afspraak[] }) {
+import { Appointment } from "../types/appointment.interface";
+
+function EerstvolgendeAfspraken({ afspraken }: { afspraken: Appointment[] }) {
 	return (
 		<div className="m-2">
 			<h2 className="text-2xl font-bold text-indigo-600">
@@ -29,11 +15,12 @@ function EerstvolgendeAfspraken({ afspraken }: { afspraken: Afspraak[] }) {
 							<td className=" border-gray-200">
 								<div className="mx-2">
 									<h3 className="text-lg font-semibold ">
-										{afspraak.personal_data.name}
+										{afspraak.personalData.name}
 									</h3>
 									<span className="block">
-										{afspraak.date} {afspraak.start_time}-
-										{afspraak.end_time}
+										{afspraak.date}{" "}
+										{afspraak.time.start_time}-
+										{afspraak.time.end_time}
 									</span>
 								</div>
 							</td>
