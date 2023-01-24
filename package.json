@@ -9,9 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "flatpickr": "^4.6.13",
-    "@headlessui/react": "^1.7.4",
+    "@headlessui/react": "^1.7.7",
     "@heroicons/react": "^2.0.13",
+    "flatpickr": "^4.6.13",
     "iconoir-react": "^5.4.1",
     "next": "13.0.4",
     "next-auth": "^4.17.0",
