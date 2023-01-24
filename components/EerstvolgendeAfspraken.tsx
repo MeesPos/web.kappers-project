@@ -3,8 +3,8 @@ import { Appointment } from "../types/appointment.interface";
 
 function EerstvolgendeAfspraken({ afspraken }: { afspraken: Appointment[] }) {
 	return (
-		<div className="m-5">
-			<h2 className="text-2xl font-§ld text-indigo-600">
+		<div className="m-5 p-2">
+			<h2 className="text-2xl font-bold text-indigo-600">
 				Eerst Volgende Afspraken
 			</h2>
 

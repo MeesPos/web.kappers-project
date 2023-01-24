@@ -33,14 +33,12 @@ const Dashboard: NextPage = () => {
 		return (
 			<>
 				<DashboardWrapper title="Dashboard">
-					<div className="grid grid-cols-3">
-						<div className="bg-white rounded-lg m-1 col-span-2">
-							{!afspraken ? (
-								<Loading />
-							) : (
-								<EerstvolgendeAfspraken afspraken={afspraken} />
-							)}
-						</div>
+					<div className="bg-white rounded-lg m-1 col-span-2">
+						{!afspraken ? (
+							<Loading />
+						) : (
+							<EerstvolgendeAfspraken afspraken={afspraken} />
+						)}
 					</div>
 				</DashboardWrapper>
 			</>
