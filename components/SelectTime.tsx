@@ -55,11 +55,11 @@ function SelectTime({
           <div className="p-5 width-[600px] height-[780px] ml-[40%] ">
             <h1 className="text-indigo-500 font-bold text-2xl">
               Selecteer uw tijd
-              <div>
+              <div className="grid grid-cols-3 gap-x-8 gap-y-3 mt-4">
                 {availableTimes?.map((time: any, index: any) => {
                   return (
                     <button
-                      className="text-sm text-black px-1"
+                      className="w-full text-sm text-black border-2 border-[#F9F9F9] rounded-xl py-2"
                       key={index}
                       onClick={() => handleClick2(time)}
                     >
@@ -67,15 +67,10 @@ function SelectTime({
                     </button>
                   );
                 })}
-                <input
-                  className="relative top-[225px] w-[350px] ml-[15%]"
-                  type="datetime-local"
-                  placeholder="Select Datetime"
-                ></input>
               </div>
               <div className="height-[200px] width-[200px]"></div>
               <br></br>
-              <div className="relative text-black text-xl top-[525px] left-[10px]">
+              <div className="relative text-black text-xl top-[50px] left-[10px]">
                 <button
                   className="relative w-24 text-sm hover:border-2"
                   onClick={handleClick}
