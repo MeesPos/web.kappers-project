@@ -3,7 +3,7 @@ import SelectTreatment from "../components/SelectTreatment";
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Card from "../components/Card";
-
+import Link from "next/link";
 const navigation = [
 	{ name: "Behandelingen", href: "#behandelingen" },
 	{ name: "Over ons", href: "#over" },
@@ -81,12 +81,12 @@ export default function App() {
 							))}
 						</div>
 						<div className="hidden lg:flex lg:min-w-0 lg:flex-1 lg:justify-end">
-							<a
-								href="#"
+							<Link
+								href="/login"
 								className="inline-block rounded-lg px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900 shadow-sm ring-1 ring-gray-900/10 hover:ring-gray-900/20"
 							>
 								Log in
-							</a>
+							</Link>
 						</div>
 					</nav>
 					<Dialog
