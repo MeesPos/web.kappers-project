@@ -203,7 +203,7 @@ export default function App() {
 										</span>
 									</a>
 									<a
-										href="#"
+										href="#over"
 										className="inline-block rounded-lg px-4 py-1.5 text-base font-semibold leading-7 text-gray-900 ring-1 ring-gray-900/10 hover:ring-gray-900/20"
 									>
 										Lees meer{" "}
