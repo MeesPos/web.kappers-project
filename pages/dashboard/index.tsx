@@ -13,27 +13,33 @@ const Dashboard: NextPage = () => {
 
 	const [afspraken, setAfspraken] = useState<Appointment[]>();
 
-	async function fetchAfspraken() {
-		const res = await fetch(
-			`${process.env.NEXT_PUBLIC_API_URL}/appointments`
-		);
-		if (res?.ok) {
-			setAfspraken(await res.json());
-		}
-	}
-
 	useEffect(() => {
 		if (status === "unauthenticated") router.replace("/login");
+
+		async function fetchAfspraken() {
+			const res = await fetch(
+				`${process.env.NEXT_PUBLIC_API_URL}/appointments`
+			);
+			if (res?.ok) {
+				const afspraken = await res.json();
+				setAfspraken(afspraken.data);
+			}
+		}
+		if (status === "authenticated") fetchAfspraken();
+
 		return;
 	}, [status, router]);
 	if (status === "authenticated") {
-		fetchAfspraken();
 		return (
 			<>
 				<DashboardWrapper title="Dashboard">
 					<div className="grid grid-cols-3">
 						<div className="bg-white rounded-lg m-1 col-span-2">
-							<EerstvolgendeAfspraken afspraken={afspraken!} />
+							{!afspraken ? (
+								<Loading />
+							) : (
+								<EerstvolgendeAfspraken afspraken={afspraken} />
+							)}
 						</div>
 					</div>
 				</DashboardWrapper>
