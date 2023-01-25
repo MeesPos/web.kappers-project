@@ -96,11 +96,11 @@ function Gegevensinvullen2() {
           </div>
           <div className="p-5 width-[600px] height-[780px] ml-[40%] ">
             <h1 className="text-indigo-500 font-bold text-2xl">
-              Hoe kunnen wij je bereiken?{" "}
+              Hoe kunnen wij je bereiken?
             </h1>
             <div className="height-[200px] width-[200px]">
               <form onSubmit={handleSubmit}>
-                <div className="relative top-[20px] right-[25px] ">
+                <div className="relative top-[20px] right-[15px]">
                   <div className="p-4">
                     <label className="py-2 font-bold">Naam: *</label> <br></br>
                     <input
@@ -159,7 +159,7 @@ function Gegevensinvullen2() {
                       }
                     ></textarea>
                   </div>
-                  <div className="relative top-[25px]">
+                  <div className="relative left-[15px] top-[25px]">
                     <p>* vereist in te vullen</p>
                   </div>
                 </div>
@@ -177,7 +177,7 @@ function Gegevensinvullen2() {
               </div>
             </div>
             <br></br>
-            <div className="relative text-black text-xl top-[50px] left-[10px]">
+            <div className="relative text-black text-xl top-[50px] left-[-20px]">
               <button
                 className="relative w-24 text-sm hover:border-2"
                 onClick={handleClick}
