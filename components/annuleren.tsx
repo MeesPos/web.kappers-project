@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 
   const handleClick = () => {
-    location.href = '/betalingsoverzicht';
+    location.href = '/';
   }
   const handleClick2 = () => {
     location.href = '/';
@@ -70,7 +70,7 @@ function Reserveringsoverzicht(){
             onClick={handleClick}
             
           >
-            ← vorige
+            ← Terug naar de homepagina
           </button>
         </div>
       

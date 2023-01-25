@@ -2,32 +2,15 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 
   const handleClick = () => {
-    location.href = '/gegevensinvullen';
+    location.href = '/extraservices';
   }
   const handleClick2 = () => {
-    location.href = '/betaalmethode';
+    location.href = '/betalingsoverzicht';
   }
 
  
 
-function Betalingsoverzicht(){
-  const [item, setItem] = useState('')
-  const [behandeling, setbehandeling] = useState('')
-  const [naam, setnaam] = useState('')
-  const [email, setemail] = useState('')
-  const [phone, setphone] = useState('')
-  useEffect(() => {
-    const item = window.localStorage.getItem('kapper')
-    const behandeling = window.localStorage.getItem('behandeling')
-    const naam = window.localStorage.getItem('naam')
-    const email = window.localStorage.getItem('email')
-    const phone = window.localStorage.getItem('phone')
-    setItem(item!)
-    setbehandeling(behandeling!)
-    setnaam(naam!)
-    setemail(email!)
-    setphone(phone!)
-  }, [])
+function Tijdwijzigen(){
 
     return(
         <>
@@ -35,10 +18,11 @@ function Betalingsoverzicht(){
   <title>Reservering maken</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
   <div className="h-screen bg-gray-400">
+  <div className="">
   <div className="w-[1200px] h-[800px] rounded-3xl m-auto p-5 bg-white">
     <div className="float-left p-2 bg-white text-center w-[440px] h-[700px] items-center">
       <img className="relative top-[30px] ml-[40%]" src="fotos/Group5.png" width="80px" />
-      <h1 className="relative top-[125px] text-indigo-500 text-2xl font-bold p-2">Betalingsoverzicht</h1>
+      <h1 className="relative top-[125px] text-indigo-500 text-2xl font-bold p-2"> Tijd wijzigen</h1>
       <h4 className="relative top-[125px] text-indigo-500 font-normal text-gray-500">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua.
@@ -50,20 +34,15 @@ function Betalingsoverzicht(){
     </div>
     <div className="p-5 width-[600px] height-[780px] ml-[40%] ">
       <h1 className="text-indigo-500 font-bold text-2xl">
-            Betalingsoverzicht </h1>
+            Tijd wijzigen </h1>
         <div className="height-[200px] width-[200px]"> 
-        <div>
-          <p className="text-indigo-500 font-bold text-2xl relative top-[50px]">reservering</p>
-            <div className="relative top-[75px]">
-             <p className="p-2 font-bold">Gekozen behandeling: {behandeling}</p>
-             <p className="p-2 font-bold">Gekozen kapper: {item}</p>
-             <br></br>
-             <h1 className="text-indigo-500 font-bold text-2xl">persoonlijke gegevens</h1>
-             <div className="relative top-[25px]">
-             <p className="p-2 font-bold">Naam: {naam}</p>
-             <p className="p-2 font-bold">E-mailadress: {email}</p>
-             <p className="p-2 font-bold">telefoonnummer: {phone}</p>
-             </div>
+        <div className="relative top-[150px] right-[25px] ">
+            <div className="p-4">
+                <label className="p-2 font-bold">Hoeveel minuten verewacht u dat u te laat bent?:*</label> <br></br>
+                <input className="p-2 w-[450px] border-2 rounded " type="text" id="tijd"></input>
+            </div>
+            <div className="relative top-[25px]">
+                <p>* vereist in te vullen</p>
             </div>
         </div>
         
@@ -75,7 +54,7 @@ function Betalingsoverzicht(){
           </div>
         </div>
         <br></br>
-        <div className="relative text-black text-xl top-[125px] left-[10px]">
+        <div className="relative text-black text-xl top-[400px] left-[10px]">
           <button
             className="relative w-24 text-sm hover:border-2"
             onClick={handleClick}
@@ -89,7 +68,9 @@ function Betalingsoverzicht(){
             Volgende →
           </button>
         </div>
+     
     </div>
+  </div>
   </div>
   </div>
 </>
@@ -97,4 +78,4 @@ function Betalingsoverzicht(){
     );
 }
 
-export default Betalingsoverzicht;
+export default Tijdwijzigen;

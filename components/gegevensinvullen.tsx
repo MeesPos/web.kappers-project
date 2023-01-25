@@ -7,6 +7,18 @@ import { useEffect } from "react";
   const handleClick2 = () => {
     location.href = '/betalingsoverzicht';
   }
+  const handleClick3 = (event: any) => {
+    
+    localStorage.setItem('naam', event.target.value);
+  }
+  const handleClick4 = (event: any) => {
+    
+    localStorage.setItem('email', event.target.value);
+  }
+  const handleClick5 = (event: any) => {
+    
+    localStorage.setItem('phone', event.target.value);
+  }
 
  
 
@@ -38,15 +50,15 @@ function Gegevensinvullen2(){
         <div className="relative top-[20px] right-[25px] ">
             <div className="p-4">
                 <label className="p-2 font-bold">Naam:*</label> <br></br>
-                <input className="p-2 w-[450px] border-2 rounded " type="text" id="naam"></input>
+                <input className="p-2 w-[450px] border-2 rounded " type="text" id="naam" onChange={(event) => handleClick3(event)}></input>
             </div>
             <div className="p-4">
                 <label className="p-2 font-bold">E-mailadress:*</label> <br></br>
-                <input className="p-2 w-[450px] border-2 rounded" type="text" id="name"></input>
+                <input className="p-2 w-[450px] border-2 rounded" type="text" id="email" onChange={(event) => handleClick4(event)}></input>
             </div>
             <div className="p-4">
                 <label className="p-2 font-bold">Telefoonnummer:</label> <br></br>
-                <input className="p-2 w-[450px] border-2 rounded " type="text" id="name"></input>
+                <input className="p-2 w-[450px] border-2 rounded " type="text" id="phone" onChange={(event) => handleClick5(event)}></input>
             </div>
             <div className="p-4">
                 <label className="p-2 font-bold">Opmerking:</label> <br></br>

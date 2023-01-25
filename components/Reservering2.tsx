@@ -16,7 +16,7 @@ import Hoofdpagina from "./Hoofdpagina";
 function Reservering2(){
     return(
         <>
-        <div>
+        <div className="absolute inset-0 bg-black/50">
   <link href="https://fonts.googleapis.com/css?family=Inter" rel="stylesheet" />
   <title>Reservering maken</title>
   <div className="bg-auto bg-slate-400">

@@ -7,10 +7,31 @@ import { useEffect } from "react";
   const handleClick2 = () => {
     location.href = '/anuleren';
   }
+  const handleClick3 = () => {
+    location.href = '/tijdwijzigen';
+  }
+  
 
  
 
 function Reserveringsoverzicht(){
+    const [item, setItem] = useState('')
+    const [behandeling, setbehandeling] = useState('')
+    const [naam, setnaam] = useState('')
+    const [email, setemail] = useState('')
+    const [phone, setphone] = useState('')
+    useEffect(() => {
+        const item = window.localStorage.getItem('kapper')
+        const behandeling = window.localStorage.getItem('behandeling')
+        const naam = window.localStorage.getItem('naam')
+        const email = window.localStorage.getItem('email')
+        const phone = window.localStorage.getItem('phone')
+        setItem(item!)
+        setbehandeling(behandeling!)
+        setnaam(naam!)
+        setemail(email!)
+        setphone(phone!)
+    }, [])
 
     return(
         <>
@@ -23,8 +44,6 @@ function Reserveringsoverzicht(){
       <img className="relative top-[30px] ml-[40%]" src="fotos/Group5.png" width="80px" />
       <h1 className="relative top-[125px] text-indigo-500 text-2xl font-bold p-2">Reservering bevestigd</h1>
       <h4 className="relative top-[125px] text-indigo-500 font-normal text-gray-500">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua.
       </h4>
       <div className="">
       <h1 className="relative top-[425px] text-indigo-500 font-bold text-2xl p-2">Vragen?</h1>
@@ -40,16 +59,14 @@ function Reserveringsoverzicht(){
             <h3 className="text-2xl font-bold text-indigo-500">Reservering</h3>
             <div className="h-[200px] space-y-8">
             <div className="w-[550px]">
-            <h3 className="text-base">gekozen behandeling:</h3>
-            <h3 className="float-right">gb</h3>
+            <h3 className="text-base">gekozen behandeling: </h3>
+            <h3 className="float-right">{behandeling}</h3>
             </div>
             <div className="w-[550px]">
             <h3 className="text-base">gekozen kapper:</h3>
-            <h3 className="float-right">gk</h3>
+            <h3 className="float-right">{item}</h3>
             </div>
             <div className="w-[550px]">
-            <h3 className="text-base">datum:</h3>
-            <h3 className="float-right">date</h3>
             </div>
             <br></br>
             <h3 className="w-[550px] text-base">Let op als u niet kunt op de aangeven datum of toch op een datum wilt / kan klik dan op de annuleren knop</h3>
@@ -86,6 +103,11 @@ function Reserveringsoverzicht(){
           onClick={handleClick2}
           >
             Annuleren
+          </button>
+          <button className="relative w-24 text-sm bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 border border-blue-700 rounded ml-2"
+          onClick={handleClick3}
+          >
+            Tijd Wijzigen
           </button>
         </div>
       
