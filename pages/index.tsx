@@ -81,12 +81,12 @@ export default function App() {
 							))}
 						</div>
 						<div className="hidden lg:flex lg:min-w-0 lg:flex-1 lg:justify-end">
-							<Link
-								href="/login"
+							<button
+								onClick={handleClickOpen}
 								className="inline-block rounded-lg px-3 py-1.5 text-sm font-semibold leading-6 text-gray-900 shadow-sm ring-1 ring-gray-900/10 hover:ring-gray-900/20"
 							>
-								Log in
-							</Link>
+								Afspraak maken
+							</button>
 						</div>
 					</nav>
 					<Dialog
@@ -140,9 +140,10 @@ export default function App() {
 									<div className="py-6">
 										<a
 											href="#"
+											onClick={handleClickOpen}
 											className="-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 text-gray-900 hover:bg-gray-400/10"
 										>
-											Log in
+											Afspraak maken
 										</a>
 									</div>
 								</div>
