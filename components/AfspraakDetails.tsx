@@ -1,31 +1,31 @@
 import { Appointment } from "../types/appointment.interface";
-
+import { Dispatch, SetStateAction } from "react";
 function AfspraakDetails({
 	afspraak,
 	setState,
 }: {
 	afspraak: Appointment;
-	setState: any;
+	setState: Dispatch<SetStateAction<boolean>>;
 }) {
 	console.log("indetails", afspraak);
 	return (
-		<>
+		<div className="inset-0 absolute bg-gray-500/50">
 			<div
 				id="defaultModal"
 				aria-hidden="true"
-				className="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full"
+				className="z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full flex items-center justify-center h-screen"
 			>
 				<div className="relative w-full h-full max-w-2xl md:h-auto">
-					<div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
-						<div className="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
-							<h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-								{/* {afspraak.personal_data.name} */}
+					<div className="relative bg-white rounded-lg shadow">
+						<div className="flex items-start justify-between p-4 border-b rounded-t">
+							<h3 className="text-xl font-semibold text-indigo-600 ">
+								Afspraak Details
 							</h3>
 							<button
 								type="button"
-								className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+								className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center "
 								data-modal-hide="defaultModal"
-								onClick={setState(undefined)}
+								onClick={() => setState(false)}
 							>
 								<svg
 									aria-hidden="true"
@@ -43,37 +43,58 @@ function AfspraakDetails({
 								<span className="sr-only">Close modal</span>
 							</button>
 						</div>
-
-						<div className="space-y-2 divide-y divide-gray-200">
-							<div>
-								<label className="text-lg font-light">
-									Kapper
-								</label>
-								<p className="text-base p-6 leading-relaxed text-gray-500 dark:text-gray-400">
-									{afspraak.hairdresser_name}
-								</p>
-							</div>{" "}
-							<div>
-								<label className="text-lg font-light">
-									behandeling
-								</label>
-								<p className="text-base p-6 leading-relaxed text-gray-500 dark:text-gray-400">
-									{afspraak.treatment.id}
-								</p>
-							</div>{" "}
-							<div>
-								<label className="text-lg font-light">
-									Opmerkingen
-								</label>
-								<p className="text-base p-6 leading-relaxed text-gray-500 dark:text-gray-400">
-									{afspraak.personal_data.note}
-								</p>
+						<div>
+							<h3 className="text-lg ml-5 my-2 font-semibold ">
+								{afspraak.personal_data.name}
+							</h3>
+							<div className=" p-5 divide-y divide-solid divide-gray-200">
+								<div className="grid py-5 first:pt-0 last:pb-0 grid-cols-2">
+									<span className="text-md font-light">
+										Kapper
+									</span>
+									<p className="text-black ">
+										{afspraak.hairdresser_name}
+									</p>
+								</div>
+								<div className="grid  py-5 0 grid-cols-2">
+									<span className="text-md font-light">
+										Behandeling
+									</span>
+									<p className="text-black ">
+										{afspraak.treatment.name ||
+											afspraak.treatment.id}
+									</p>
+								</div>
+								<div className="grid py-5 first:pt-0 last:pb-0  grid-cols-2">
+									<span className="text-md font-light">
+										Opmerkingen
+									</span>
+									<p className="text-black -black">
+										{afspraak.personal_data.note}
+									</p>
+								</div>
+								<div className="grid py-5 first:pt-0 last:pb-0  grid-cols-2">
+									<span className="text-md font-light">
+										Telefoon Nummer
+									</span>
+									<p className="text-black ">
+										{afspraak.personal_data.phone_number}
+									</p>
+								</div>
+								<div className="grid py-5 first:pt-0 last:pb-0  grid-cols-2">
+									<span className="text-md font-light">
+										Email
+									</span>
+									<p className="text-black">
+										{afspraak.personal_data.email}
+									</p>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</>
+		</div>
 	);
 }
 

@@ -1,19 +1,23 @@
 import { Appointment } from "../types/appointment.interface";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AfspraakDetails from "./AfspraakDetails";
 
-function EerstvolgendeAfspraken({ afspraken }: { afspraken: Appointment[] }) {
+function EerstvolgendeAfspraken({
+	afspraken,
+	onAfspraakClick,
+}: {
+	afspraken: Appointment[];
+	onAfspraakClick: Function;
+}) {
 	const [afspraakDetails, setAfspraakDetails] = useState<
 		Appointment | undefined
 	>(undefined);
 	const [modal, setModal] = useState<boolean>(false);
 
-	function handleAfspraakClick(idx: number) {
-		const afspraak = afspraken[idx];
-		setAfspraakDetails(afspraak);
-		setModal(true);
-		console.log("click", afspraak);
-	}
+	useEffect(() => {
+		setAfspraakDetails(afspraken[1]);
+	}, [modal, afspraken]);
+
 	return (
 		<div className="m-5 p-2">
 			<h2 className="text-2xl font-bold text-indigo-600">
@@ -26,7 +30,7 @@ function EerstvolgendeAfspraken({ afspraken }: { afspraken: Appointment[] }) {
 						<div key={idx}>
 							<div
 								className="grid grid-cols-3 hover:bg-gray-200  rounded-md p-2 my-2 hover:cursor-pointer"
-								onClick={() => handleAfspraakClick(idx)}
+								onClick={() => onAfspraakClick(idx)}
 							>
 								<div>
 									<h3 className="text-lg font-semibold ">
@@ -56,12 +60,6 @@ function EerstvolgendeAfspraken({ afspraken }: { afspraken: Appointment[] }) {
 						</div>
 					);
 				})}
-				{modal ? (
-					<AfspraakDetails
-						afspraak={afspraakDetails!}
-						setState={setAfspraakDetails}
-					/>
-				) : null}
 			</div>
 		</div>
 	);

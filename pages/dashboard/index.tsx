@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { Search } from "iconoir-react";
+import AfspraakDetails from "../../components/AfspraakDetails";
 import { DashboardWrapper } from "../../components/DashboardWrapper";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
@@ -12,7 +12,8 @@ const Dashboard: NextPage = () => {
 	const router = useRouter();
 
 	const [afspraken, setAfspraken] = useState<Appointment[]>();
-
+	const [modal, setModal] = useState(false);
+	const [afspraakDetails, setAfspraakDetails] = useState<Appointment>();
 	useEffect(() => {
 		if (status === "unauthenticated") router.replace("/login");
 
@@ -29,6 +30,12 @@ const Dashboard: NextPage = () => {
 
 		return;
 	}, [status, router]);
+
+	function handleAfspraakClick(idx: number) {
+		setModal(true);
+		console.log(modal);
+		setAfspraakDetails(afspraken![idx]);
+	}
 	if (status === "authenticated") {
 		return (
 			<>
@@ -37,9 +44,19 @@ const Dashboard: NextPage = () => {
 						{!afspraken ? (
 							<Loading />
 						) : (
-							<EerstvolgendeAfspraken afspraken={afspraken} />
+							<EerstvolgendeAfspraken
+								afspraken={afspraken}
+								onAfspraakClick={handleAfspraakClick}
+							/>
 						)}
 					</div>
+
+					{modal ? (
+						<AfspraakDetails
+							afspraak={afspraakDetails!}
+							setState={setModal}
+						/>
+					) : null}
 				</DashboardWrapper>
 			</>
 		);
