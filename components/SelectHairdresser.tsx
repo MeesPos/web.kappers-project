@@ -64,7 +64,7 @@ function SelectHairdresser({ hairdressers }: { hairdressers: Hairdresser[] }) {
             <h1 className="text-indigo-500 font-bold text-2xl">
               Selecteer uw kapper
               <br />
-              <div className="height-[200px] width-[200px] grid grid-cols-3">
+              <div className="height-[200px] width-[200px] grid grid-cols-3 gap-6">
                 {hairdressers?.map((hairdresser: any, index: any) => {
                   return (
                     <button
