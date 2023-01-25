@@ -92,12 +92,12 @@ function Agenda({
                   const convertedDate = new Date(
                     +year,
                     Number(month) - 1,
-                    +day - 1
+                    +day
                   );
 
                   const dayString = `${
-                    days[convertedDate.getDay()]
-                  } ${convertedDate.getDate()} ${
+                    days[convertedDate.getUTCDay()]
+                  } ${day} ${
                     months[convertedDate.getMonth()]
                   }`;
 
