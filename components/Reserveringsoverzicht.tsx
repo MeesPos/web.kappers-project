@@ -83,14 +83,14 @@ function Reserveringsoverzicht() {
                 <h4 className="text-2xl text-indigo-500 font-bold">Betaling</h4>
                 <div className="">
                   <br></br>
-                  <div className="space-y-[20px] space-x-">
+                  <div className="space-y-8">
                     <div className="w-[550px] flex justify-between">
                       <h3 className="text-base">Betaalmethode:</h3>
                       <h3 className="text-right">Betalen op locatie</h3>
                     </div>
-                    <div className="w-[550px]">
+                    <div className="w-[550px] flex justify-between">
                       <h3 className="text-base">prijs:</h3>
-                      <h3 className="float-right">&euro; 20.00,-</h3>
+                      <h3 className="text--right">&euro; 20.00,-</h3>
                     </div>
                     <h3 className="w-[550px] text-sm text-gray-500 pt-8">
                       Let op als u niet kunt op de aangeven datum of toch op een
@@ -103,13 +103,7 @@ function Reserveringsoverzicht() {
             </div>
             <br></br>
 
-            <div className="relative text-black text-xl top-[125px] w-[550px] left-[10px]">
-              <button
-                className="relative text-sm hover:border-2"
-                onClick={handleClick}
-              >
-                ← vorige
-              </button>
+            <div className="relative text-black text-xl top-[100px] w-[550px] left-[10px]">
               <button
                 className="relative w-24 text-sm bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 border border-blue-700 rounded float-right"
                 onClick={handleClick2}
