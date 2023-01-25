@@ -70,7 +70,7 @@ function Gegevensinvullen2() {
         href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
       />
       <div className="h-screen bg-gray-400">
-        <div className="w-[1200px] h-[800px] rounded-3xl m-auto p-5 bg-white">
+        <div className="w-[1200px] h-[800px] rounded-3xl m-auto p-5 bg-white absolute left-0 right-0 top-0 bottom-0">
           <div className="float-left p-2 bg-white text-center w-[440px] h-[700px] items-center">
             <img
               className="relative top-[30px] ml-[40%]"
