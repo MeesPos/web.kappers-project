@@ -1,62 +1,29 @@
-import React, { useState } from "react";
 import { Appointment } from "../types/appointment.interface";
-import { Availability } from "../types/haidresser.interface";
 
 const handleClick = () => {
   location.href = "/kapperselecteren";
 };
 
-function Agenda({
-  availableDates,
+function SelectTime({
+  availableTimes,
   appointment,
 }: {
-  availableDates: Array<JSON>;
+  availableTimes: Array<JSON>;
   appointment: Appointment;
 }) {
-  const handleClick2 = (date: string) => {
-    appointment.date = date;
+  const handleClick2 = (time: { start_time: String; end_time: String }) => {
+    appointment.time = {
+      start_time: time.start_time,
+      end_time: time.end_time,
+    };
 
     localStorage.setItem("appointment", JSON.stringify(appointment));
 
-    window.location.href = "/tijd-selecteren";
+    window.location.href = "/gegevensinvullen";
   };
-
-  const days = [
-    "Maandag",
-    "Dinsdag",
-    "Woensdag",
-    "Donderdag",
-    "Vrijdag",
-    "Zaterdag",
-    "Zondag",
-  ];
-
-  const months = [
-    "januari",
-    "februari",
-    "maart",
-    "april",
-    "mei",
-    "juni",
-    "juli",
-    "augustus",
-    "september",
-    "oktober",
-    "november",
-    "december",
-  ];
 
   return (
     <>
-      <link
-        href="https://fonts.googleapis.com/css?family=Inter"
-        rel="stylesheet"
-      />
-      <title>Reservering maken</title>
-      <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
-      />
       <div className="h-screen bg-gray-400">
         <div className="w-[1200px] h-[800px] rounded-3xl m-auto p-5 bg-white absolute left-0 right-0 top-0 bottom-0">
           <div className="float-left p-2 bg-white text-center w-[440px] h-[700px] items-center">
@@ -66,8 +33,11 @@ function Agenda({
               width="80px"
             />
             <h1 className="relative top-[125px] text-indigo-500 text-2xl font-bold p-2">
-              Selecteer uw dag
+              Selecteer uw tijd
             </h1>
+            <h3 className="relative top-[125px] text-indigo-500 text-lg p-2">
+              gekozen kapper:
+            </h3>
             <h4 className="relative top-[125px] font-normal text-gray-500">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -84,36 +54,27 @@ function Agenda({
           </div>
           <div className="p-5 width-[600px] height-[780px] ml-[40%] ">
             <h1 className="text-indigo-500 font-bold text-2xl">
-              Selecteer uw dag
+              Selecteer uw tijd
               <div className="grid grid-cols-3 gap-x-8 gap-y-3 mt-4">
-                {availableDates?.map((date: any, index: any) => {
-                  const [day, month, year] = date.date.split("-");
-
-                  const convertedDate = new Date(
-                    +year,
-                    Number(month) - 1,
-                    +day
-                  );
-
-                  const dayString = `${
-                    days[convertedDate.getUTCDay()]
-                  } ${day} ${
-                    months[convertedDate.getMonth()]
-                  }`;
-
+                {availableTimes?.map((time: any, index: any) => {
                   return (
                     <button
                       className="w-full text-sm text-black border-2 border-[#F9F9F9] rounded-xl py-2"
                       key={index}
-                      onClick={() => handleClick2(date.date)}
+                      onClick={() => handleClick2(time)}
                     >
-                      {dayString}
+                      {time.start_time} - {time.end_time}
                     </button>
                   );
                 })}
               </div>
-              <div className="relative text-black text-xl top-[125px] left-[10px]">
-                <button className="relative w-24 text-sm" onClick={handleClick}>
+              <div className="height-[200px] width-[200px]"></div>
+              <br></br>
+              <div className="relative text-black text-xl top-[50px] left-[10px]">
+                <button
+                  className="relative w-24 text-sm hover:border-2"
+                  onClick={handleClick}
+                >
                   ← vorige
                 </button>
               </div>
@@ -125,4 +86,4 @@ function Agenda({
   );
 }
 
-export default Agenda;
+export default SelectTime;
