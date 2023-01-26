@@ -1,18 +1,16 @@
 export interface Appointment {
-    treatment: String,
-    hairdresser: {
-        id: Number,
-        name: String;
-    },
-    date: String,
-    time: {
-        start_time: String,
-        end_time: String
-    },
-    personalData: {
-        name: String;
-        email: String;
-        phone_number?: String;
-        note?: String;
-    }
+	treatment: {
+		id: number;
+		name: string;
+	};
+	hairdresser_name: string;
+	date: string;
+	start_time: string;
+	end_time: string;
+	personal_data: {
+		name: string;
+		email: string;
+		phone_number?: string;
+		note?: string;
+	};
 }
