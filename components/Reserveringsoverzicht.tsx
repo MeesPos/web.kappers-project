@@ -105,7 +105,7 @@ function Reserveringsoverzicht() {
 										</div>
 										<div className="w-[550px] flex justify-between">
 											<h3 className="text-base">
-												prijs:
+												Prijs:
 											</h3>
 											<h3 className="text--right">
 												&euro; 20.00,-
